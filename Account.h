@@ -67,7 +67,7 @@ public:
     and a double for the amount being transferred.
     Post: Returns a bool indicating success or failure.
     */
-    bool transferRecieve(int f, double amt);
+    bool transferReceive(int f, double amt);
     /*
     Method for retrieving first name.
     Pre: N/A
