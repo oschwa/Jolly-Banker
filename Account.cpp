@@ -1,8 +1,5 @@
 #include "Account.h"
 
-/*
-FIXME: Fund array is initialized in this constructor.
-*/
 Account::Account() {}
 
 Account::Account(std::string firstName, std::string lastName, std::string id) {
@@ -13,14 +10,7 @@ Account::Account(std::string firstName, std::string lastName, std::string id) {
 
 Account::~Account() {}
 
-bool Account::addFund(std::string fundNum, std::string fundName) {
-    //Create Fund object here.
-    //Add Fund object to array, check to make sure that it isn't full.
-    //Also check to make sure the Fund array doesn't already have this Fund.
-    return false;
-}
-
-bool Account::addToFund(std::string fundNum, double amt) {
+bool Account::deposit(int f, double amt) {
     //Locate index with desired Fund object in 'funds' and use the 
     //add() method to add the 'amt' to it. 
     //Include handling for incorrect Fund number.
