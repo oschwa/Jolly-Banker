@@ -2,6 +2,8 @@
 #define FUND_H
 #include <iostream>
 #include <string>
+#include <vector>
+#include "Transaction.h"
 
 class Fund
 {
@@ -13,18 +15,22 @@ private:
 	std::string name;
 
 	// one digit id of fund
-	std::string fundID;
+	char fundID;
+
+	// vector for transaction history
+	vector<Transaction> history;
 
 public:
 	// constructor / destructor
 	Fund();
-	Fund(std::string fundID, std::string fundName);
+	Fund(char fundID, std::string fundName);
 	~Fund();
 
 	// setter / getters
 	int getTotal();
-	std::string getFundID();
+	char getFundID();
 	std::string getName();
+	vector<Transaction> getHistory();
 
 	// utility methods
 	bool add(int amountToAdd);

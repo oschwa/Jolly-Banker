@@ -5,7 +5,7 @@ Fund::Fund()
     this->total = 0;
 }
 
-Fund::Fund(std::string fundID, std::string fundName)
+Fund::Fund(char fundID, std::string fundName)
 {
     this->fundID = fundID;
     this->name = fundName;
@@ -19,7 +19,7 @@ int Fund::getTotal()
     return this->total;
 }
 
-std::string Fund::getFundID()
+char Fund::getFundID()
 {
     return this->fundID;
 }
@@ -27,6 +27,11 @@ std::string Fund::getFundID()
 std::string Fund::getName()
 {
     return this->name;
+}
+
+vector<Transaction> Fund::getHistory()
+{
+    return this->history;
 }
 
 bool Fund::add(int amountToAdd)
