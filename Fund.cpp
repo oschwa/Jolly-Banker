@@ -2,21 +2,21 @@
 
 Fund::Fund()
 {
-    this->total = 0;
+    this->balance = 0;
 }
 
 Fund::Fund(char fundID, std::string fundName)
 {
     this->fundID = fundID;
     this->name = fundName;
-    this->total = 0;
+    this->balance = 0;
 }
 
 Fund::~Fund() {}
 
-int Fund::getTotal()
+int Fund::getBalance()
 {
-    return this->total;
+    return this->balance;
 }
 
 char Fund::getFundID()
@@ -36,19 +36,44 @@ vector<Transaction> Fund::getHistory()
 
 bool Fund::add(int amountToAdd)
 {
-    this->total += amountToAdd;
+    if (amountToAdd < 0)
+        return false;
+    this->balance += amountToAdd;
+    return true;
 }
 
 bool Fund::withdraw(int amountToWithdraw)
 {
-    if (this->total - amountToWithdraw < 0)
+    if (amountToWithdraw < 0)
+        return false;
+    if (this->balance - amountToWithdraw < 0)
         return false;
 
-    this->total -= amountToWithdraw;
+    this->balance -= amountToWithdraw;
     return true;
 }
 
-std::string Fund::check()
+bool Fund::operator<(const Fund &other)
 {
-    // TODO
+    return (this->balance < other.balance);
+}
+
+bool Fund::operator>(const Fund &other)
+{
+    return (this->balance > other.balance);
+}
+
+bool Fund::operator<=(const Fund &other)
+{
+    return (this->balance <= other.balance);
+}
+
+bool Fund::operator>=(const Fund &other)
+{
+    return (this->balance >= other.balance);
+}
+
+bool Fund::operator==(const Fund &other)
+{
+    return (this->balance == other.balance);
 }

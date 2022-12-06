@@ -9,7 +9,7 @@ class Fund
 {
 private:
 	// total amount of money in account
-	int total;
+	int balance;
 
 	// name of account
 	std::string name;
@@ -27,7 +27,7 @@ public:
 	~Fund();
 
 	// setter / getters
-	int getTotal();
+	int getBalance();
 	char getFundID();
 	std::string getName();
 	vector<Transaction> getHistory();
@@ -35,7 +35,13 @@ public:
 	// utility methods
 	bool add(int amountToAdd);
 	bool withdraw(int amountToWithdraw);
-	std::string check();
+
+	// operator overloads
+	bool operator<(const Fund &other);
+	bool operator>(const Fund &other);
+	bool operator<=(const Fund &other);
+	bool operator>=(const Fund &other);
+	bool operator==(const Fund &other);
 };
 
 #endif
