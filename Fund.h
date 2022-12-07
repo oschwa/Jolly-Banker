@@ -35,6 +35,7 @@ public:
 	// utility methods
 	bool add(int amountToAdd);
 	bool withdraw(int amountToWithdraw);
+	bool addTransaction(Transaction trans);
 
 	// operator overloads
 	bool operator<(const Fund &other);
