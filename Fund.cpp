@@ -53,6 +53,11 @@ bool Fund::withdraw(int amountToWithdraw)
     return true;
 }
 
+bool Fund::addTransaction(Transaction trans)
+{
+    this->history.push_back(trans);
+}
+
 bool Fund::operator<(const Fund &other)
 {
     return (this->balance < other.balance);
