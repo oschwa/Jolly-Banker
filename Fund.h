@@ -27,9 +27,9 @@ public:
 	~Fund();
 
 	// setter / getters
-	int getBalance();
-	char getFundID();
-	std::string getName();
+	int getBalance() const;
+	char getFundID() const;
+	std::string getName() const;
 	vector<Transaction> getHistory();
 
 	// utility methods
@@ -38,11 +38,11 @@ public:
 	bool addTransaction(Transaction trans);
 
 	// operator overloads
-	bool operator<(const Fund &other);
-	bool operator>(const Fund &other);
-	bool operator<=(const Fund &other);
-	bool operator>=(const Fund &other);
-	bool operator==(const Fund &other);
+	bool operator<(const Fund &other) const;
+	bool operator>(const Fund &other) const;
+	bool operator<=(const Fund &other) const;
+	bool operator>=(const Fund &other) const;
+	bool operator==(const Fund &other) const;
 };
 
 #endif

@@ -14,17 +14,17 @@ Fund::Fund(char fundID, std::string fundName)
 
 Fund::~Fund() {}
 
-int Fund::getBalance()
+int Fund::getBalance() const
 {
     return this->balance;
 }
 
-char Fund::getFundID()
+char Fund::getFundID() const
 {
     return this->fundID;
 }
 
-std::string Fund::getName()
+std::string Fund::getName() const
 {
     return this->name;
 }
@@ -58,27 +58,27 @@ bool Fund::addTransaction(Transaction trans)
     this->history.push_back(trans);
 }
 
-bool Fund::operator<(const Fund &other)
+bool Fund::operator<(const Fund &other) const
 {
     return (this->balance < other.balance);
 }
 
-bool Fund::operator>(const Fund &other)
+bool Fund::operator>(const Fund &other) const
 {
     return (this->balance > other.balance);
 }
 
-bool Fund::operator<=(const Fund &other)
+bool Fund::operator<=(const Fund &other) const
 {
     return (this->balance <= other.balance);
 }
 
-bool Fund::operator>=(const Fund &other)
+bool Fund::operator>=(const Fund &other) const
 {
     return (this->balance >= other.balance);
 }
 
-bool Fund::operator==(const Fund &other)
+bool Fund::operator==(const Fund &other) const
 {
     return (this->balance == other.balance);
 }
