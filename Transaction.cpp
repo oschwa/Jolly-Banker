@@ -12,65 +12,65 @@ Transaction::~Transaction()
 
 }
 
-Transaction::Transaction(char type, string firstName, string lastName, int accountNumber)
+Transaction::Transaction(char typeOfTransaction, string firstName, string lastName, int accountNumber)
 {
-    this->transactionType = type;
+    this->transactionType = typeOfTransaction;
     this->firstName = firstName;
     this->lastName = lastName;
     this->accountID = accountNumber;
 }
 
-Transaction::Transaction(char type, int accountNumber)
+Transaction::Transaction(char typeOfTransaction, int accountNo)
 {
-    this->transactionType = type;
-    this->accountID = accountNumber;
+    this->transactionType = typeOfTransaction;
+    this->accountID = accountNo;
 }
 
-Transaction::Transaction(char type, int accountNumber, int fundNumber)
+Transaction::Transaction(char typeOfTransaction, int accountNo, int fundNo)
 {
-    this->transactionType = type;
-    this->accountID = accountNumber;
-    this->fundID = fundNumber;
+    this->transactionType = typeOfTransaction;
+    this->accountID = accountNo;
+    this->fundID = fundNo;
 }
 
-Transaction::Transaction(char type, int accountNumber, int fundNumber, int amount)
+Transaction::Transaction(char typeOfTransaction, int accountNo, int fundNo, int amount)
 {
-    this->transactionType = type;
-    this->accountID = accountNumber;
-    this->fundID = fundNumber;
+    this->transactionType = typeOfTransaction;
+    this->accountID = accountNo;
+    this->fundID = fundNo;
     this->amount = amount;
 }
 
 //transaction that fails to process
-Transaction::Transaction(char type, int accountNumber, int fundNumber, int amount, string failString)
+Transaction::Transaction(char typeOfTransaction, int accountNo, int fundNo, int amount, string failTran)
 {
-    this->transactionType = type;
-    this->accountID = accountNumber;
-    this->fundID = fundNumber;
+    this->transactionType = typeOfTransaction;
+    this->accountID = accountNo;
+    this->fundID = fundNo;
     this->amount = amount;
-    this->fail = failString;
+    this->fail = failTran;
 }
 
-Transaction::Transaction(char type, int accountNumber, int fundNumber, int amount, int transferAccountNumber, int transferFundNumber)
+Transaction::Transaction(char typeOfTransaction, int accountNo, int fundNo, int amount, int transferToAccount, int transferToFund)
 {
-    this->transactionType = type;
-    this->accountID = accountNumber;
-    this->transferAccountID = transferAccountNumber;
-    this->fundID = fundNumber;
-    this->transferFundID = transferFundNumber;
+    this->transactionType = typeOfTransaction;
+    this->accountID = accountNo;
+    this->transferToAccountID = transferToAccount;
+    this->fundID = fundNo;
+    this->transferFundID = transferToFund;
     this->amount = amount;
 }
 
 //transaction that fails to process
-Transaction::Transaction(char type, int accountNumber, int fundNumber, int amount, int transferAccountNumber, int transferFundNumber, string failString)
+Transaction::Transaction(char typeOfTransaction, int accountNo, int fundNo, int amount, int transferToAccount, int transferToFund, string failTran)
 {
-    this->transactionType = type;
-    this->accountID = accountNumber;
-    this->transferAccountID = transferAccountNumber;
-    this->fundID = fundNumber;
-    this->transferFundID = transferFundNumber;
+    this->transactionType = typeOfTransaction;
+    this->accountID = accountNo;
+    this->transferToAccountID = transferToAccount;
+    this->fundID = fundNo;
+    this->transferFundID = transferToFund;
     this->amount = amount;
-    this->fail = failString;
+    this->fail = failTran;
 }
 
 
@@ -94,9 +94,9 @@ int Transaction::getAccountID() const
     return accountID;
 }
 
-int Transaction::getTransferAccountID() const
+int Transaction::getTransferToAccountID() const
 {
-    return transferAccountID;
+    return transferToAccountID;
 }
 
 int Transaction::getFundID() const
@@ -104,7 +104,7 @@ int Transaction::getFundID() const
     return fundID;
 }
 
-int Transaction::getTransferFundID() const
+int Transaction::getTransferToFundID() const
 {
     return transferFundID;
 }
@@ -114,8 +114,8 @@ int Transaction::getAmount() const
     return amount;
 }
 
-//Checks if 'fail' is empty, if it is empty the transaction is successfull, if it is not empty the transaction has failed
-bool Transaction::failed()
+//Checks if 'fail' is empty, if it is empty the transaction is successfull, if it is not empty the transaction has failedTransaction
+bool Transaction::failedTransaction()
 {
     if (fail.empty())
     {
@@ -124,17 +124,17 @@ bool Transaction::failed()
     return false;
 }
 
-//overload operator
-//If 'fail' is empty then transaction is successful and successfull message is shown,
-//if 'fail' is not empty then transaction has failed and failed message is shown
-ostream & operator<<(ostream & out, const Transaction & trans)
-{
-    if (trans.fail.empty())
-    {
-        //show message: "successful transaction"
-    }
-    else
-    {
-        //show message: "failed transaction"
-    }
-}
+////overload operator
+////If 'fail' is empty then transaction is successful and successfull message is shown,
+////if 'fail' is not empty then transaction has failed and failedTransaction message is shown
+//ostream & operator<<(ostream & out, const Transaction & trans)
+//{
+//    if (trans.fail.empty())
+//    {
+//        //show message: "successful transaction"
+//    }
+//    else
+//    {
+//        //show message: "failedTransaction transaction"
+//    }
+//}
