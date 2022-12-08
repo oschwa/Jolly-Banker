@@ -5,6 +5,8 @@
 #include <vector>
 #include "Transaction.h"
 
+#pragma once
+
 class Fund
 {
 private:
