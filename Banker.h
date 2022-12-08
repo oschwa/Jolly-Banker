@@ -19,6 +19,11 @@ private:
 	// TransactionReader reader;
 
 public:
+	// constructors
+	Banker(ifstream inputFile);
+	~Banker();
+
+	// utility methods
 	bool read(ifstream inputFile);
 	bool execute();
 	bool openAccount(std::string firstName, std::string lastName, string ID);
