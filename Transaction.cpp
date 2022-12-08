@@ -57,7 +57,7 @@ Transaction::Transaction(char typeOfTransaction, int accountNo, int fundNo, int 
     this->accountID = accountNo;
     this->transferToAccountID = transferToAccount;
     this->fundID = fundNo;
-    this->transferFundID = transferToFund;
+    this->transferToFundID = transferToFund;
     this->amount = amount;
 }
 
@@ -68,7 +68,7 @@ Transaction::Transaction(char typeOfTransaction, int accountNo, int fundNo, int 
     this->accountID = accountNo;
     this->transferToAccountID = transferToAccount;
     this->fundID = fundNo;
-    this->transferFundID = transferToFund;
+    this->transferToFundID = transferToFund;
     this->amount = amount;
     this->fail = failTran;
 }
@@ -106,7 +106,7 @@ int Transaction::getFundID() const
 
 int Transaction::getTransferToFundID() const
 {
-    return transferFundID;
+    return transferToFundID;
 }
 
 int Transaction::getAmount() const
