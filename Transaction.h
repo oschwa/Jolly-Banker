@@ -19,7 +19,7 @@ private:
     int accountID;
     int fundID;
     int transferToAccountID;
-    int transferFundID;
+    int transferToFundID;
     int amount;
     string fail;
 
