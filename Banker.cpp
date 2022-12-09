@@ -1,16 +1,27 @@
 #include "Banker.h"
+#include "TransactionReader.h"
 
 int main()
 {
-  return 0;
+	return 0;
 }
 
-bool Banker::read(ifstream inputFile)
+bool Banker::read(std::string fileName)
 {
+	reader = TransactionReader(this->transactionQueue);
+	reader.read(fileName);
 }
 
 bool Banker::execute()
 {
+	while (!transactionQueue->empty())
+	{
+		Transaction toDo = transactionQueue->front();
+
+		// complete transaction
+
+		transactionQueue->pop();
+	}
 }
 
 bool Banker::openAccount(std::string firstName, std::string lastName, std::string ID)

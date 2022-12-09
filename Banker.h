@@ -4,7 +4,7 @@
 #pragma once
 
 #include "AccountTree.h"
-// #include "TransactionReader.h"
+#include "TransactionReader.h"
 #include "Transaction.h"
 // #include "Account.h"
 #include <queue>
@@ -15,8 +15,8 @@ class Banker
 {
 private:
 	AccountTree accounts;
-	queue<Transaction> transactions;
-	// TransactionReader reader;
+	queue<Transaction> *transactionQueue;
+	TransactionReader reader;
 
 public:
 	// constructors
@@ -24,7 +24,7 @@ public:
 	~Banker();
 
 	// utility methods
-	bool read(ifstream inputFile);
+	bool read(string fileName);
 	bool execute();
 	bool openAccount(std::string firstName, std::string lastName, string ID);
 	bool viewHistory(const Account &a);
