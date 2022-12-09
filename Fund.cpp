@@ -56,6 +56,7 @@ bool Fund::withdraw(int amountToWithdraw)
 bool Fund::addTransaction(Transaction trans)
 {
     this->history.push_back(trans);
+    return true;
 }
 
 bool Fund::operator<(const Fund &other) const
