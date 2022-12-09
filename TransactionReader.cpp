@@ -11,9 +11,11 @@ bool TransactionReader::read(std::string fileName) {
     std::ifstream inFile;
     inFile.open(fileName);
     if (inFile.is_open()) {
-        std::string line;
-        inFile >> line;
-        defineTransaction(line);
+        while (true) {
+            std::string line;
+            inFile >> line;
+            defineTransaction(line);
+        }
     }
 }
 
@@ -36,25 +38,27 @@ bool TransactionReader::defineTransaction(std::string line) {
     }
 }
 
-bool buildTransaction(std::string line, char type) {
+bool TransactionReader::buildTransaction(std::string line, char type) {
     std::string accountId;
-        std::string amt;
-        int f;
-        int i;
-        //Account id obtained here.
-        for (i = 2; i < line.size(); i++) {
-            if (line[i]==' ') {
-                break;
-            }
-            accountId += line[i];
+    std::string amt;
+    int f;
+    int i;
+    //Account id obtained here.
+    for (i = 2; i < line.size(); i++) {
+        if (line[i]==' ') {
+            break;
         }
-        //Fund index is converted to int.
-        f = accountId[accountId.size()-1];
-        //Deposit amount obtained here.
-        for (i += 1; i < line.size(); i++) {
-            amt += line[i];
-        }
-        Transaction t (type, std::stoi(accountId), f, std::stoi(amt));
+        accountId += line[i];
+    }
+    //Fund index is converted to int.
+    f = accountId[accountId.size()-1];
+    //Deposit amount obtained here.
+    for (i += 1; i < line.size(); i++) {
+        amt += line[i];
+    }
+    Transaction t(type, std::stoi(accountId), f, std::stoi(amt));
+    readerQueue->push(t);
+    return true;
 }
 
 #endif //TRANSACTION_READER_CPP

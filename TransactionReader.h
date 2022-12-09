@@ -31,6 +31,8 @@ public:
     Post: Returns a Transaction object reference.
     */
     bool defineTransaction(std::string line);
+
+    bool buildTransaction(std::string line, char type);
 };
 
 #endif //TRANSACTION_READER_H

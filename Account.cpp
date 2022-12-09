@@ -26,6 +26,7 @@ bool Account::withdraw(int f, double amt) {
         return false;
     }
     funds[f].withdraw(amt);
+    return true;
 }
 
 bool Account::transfer(int f, int f1, double amt) {
@@ -68,8 +69,10 @@ std::string Account::getId() {
     return id;
 }
 
+/*
 double check(int f) {
     //return funds[f].check();
 }
+*/
 
 #endif //FUNDS_CPP
