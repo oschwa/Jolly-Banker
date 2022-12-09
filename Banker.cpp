@@ -1,5 +1,6 @@
 #include "Banker.h"
 #include "TransactionReader.h"
+#include "Account.h"
 
 int main()
 {
@@ -9,7 +10,7 @@ int main()
 bool Banker::read(std::string fileName)
 {
 	reader = TransactionReader(this->transactionQueue);
-	reader.read(fileName);
+	return (reader.read(fileName));
 }
 
 bool Banker::execute()
@@ -18,36 +19,43 @@ bool Banker::execute()
 	{
 		Transaction toDo = transactionQueue->front();
 
-		// complete transaction
+		// TODO: complete transaction
 
 		transactionQueue->pop();
 	}
+	return true;
 }
 
 bool Banker::openAccount(std::string firstName, std::string lastName, std::string ID)
 {
+	Account *newAccount = new Account(firstName, lastName, ID);
+	return (this->accounts.Insert(newAccount));
 }
 
-bool Banker::viewHistory(const Account &a)
+void Banker::viewHistory(const Account &a)
 {
 }
 
-bool Banker::viewHistory(const Account &a, int fund)
+void Banker::viewHistory(const Account &a, int fund)
 {
 }
 
 bool Banker::transferFunds(Account &a, int fund1, int fund2)
 {
+	return true;
 }
 
 bool Banker::transferFunds(Account &a, int fundA, Account &b, int fundB, int amount)
 {
+	return true;
 }
 
 bool Banker::deposit(Account &a, int fund, int amount)
 {
+	return true;
 }
 
 bool Banker::withdraw(Account &a, int fund, int amount)
 {
+	return true;
 }

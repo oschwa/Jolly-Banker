@@ -59,6 +59,41 @@ bool Fund::addTransaction(Transaction trans)
     return true;
 }
 
+void Fund::displayHistory()
+{
+    cout << *this << endl;
+    for (int i = 0; i < this->history.size(); i++)
+    {
+        // transaction type
+        char type = this->history[i].getTransactionType();
+
+        // first account id and fund id
+        int account1ID = this->history[i].getAccountID();
+        int account1Fund = this->history[i].getFundID();
+
+        // amount of transaction
+        int amount = this->history[i].getAmount();
+
+        // second account id and fund id
+        int account2ID = this->history[i].getTransferToAccountID();
+        int account2Fund = this->history[i].getTransferToFundID();
+
+        // print minimum details of transaction
+        cout << type << " " << account1ID << account1Fund << " " << amount;
+
+        // if type transfer, print second account id and second fund id
+        if (type == 'T')
+        {
+            cout << " " << account2ID << account2Fund;
+        }
+
+        // if transaction failed, print failed
+        if (this->history[i].failedTransaction())
+            cout << " (failed)";
+        cout << endl;
+    }
+}
+
 bool Fund::operator<(const Fund &other) const
 {
     return (this->balance < other.balance);
@@ -82,4 +117,10 @@ bool Fund::operator>=(const Fund &other) const
 bool Fund::operator==(const Fund &other) const
 {
     return (this->balance == other.balance);
+}
+
+ostream &operator<<(ostream &OUT, const Fund &other)
+{
+    OUT << other.name << ": $" << other.balance << endl;
+    return OUT;
 }

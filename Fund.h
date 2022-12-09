@@ -38,6 +38,7 @@ public:
 	bool add(int amountToAdd);
 	bool withdraw(int amountToWithdraw);
 	bool addTransaction(Transaction trans);
+	void displayHistory();
 
 	// operator overloads
 	bool operator<(const Fund &other) const;
@@ -45,6 +46,7 @@ public:
 	bool operator<=(const Fund &other) const;
 	bool operator>=(const Fund &other) const;
 	bool operator==(const Fund &other) const;
+	friend ostream &operator<<(ostream &OUT, const Fund &other);
 };
 
 #endif
