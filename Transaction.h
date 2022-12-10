@@ -21,7 +21,7 @@ private:
     int transferToAccountID;
     int transferToFundID;
     int amount;
-    string fail;
+    bool failed;
 
 public:
     // constructor/destructor
@@ -34,13 +34,13 @@ public:
     Transaction(char typeOfTransaction, int accountNo, int fundNo);
     Transaction(char typeOfTransaction, int accountNo, int fundNo, int amount);
     // transaction that fails to process
-    Transaction(char typeOfTransaction, int accountNo, int fundNo, int amount, string failTran);
+    Transaction(char typeOfTransaction, int accountNo, int fundNo, int amount, bool failed);
 
     Transaction(char typeOfTransaction, int accountNo, int fundNo, int amount,
                 int transferToAccount, int transferToFund);
     // transaction that fails to process
     Transaction(char typeOfTransaction, int accountNo, int fundNo, int amount,
-                int transferToAccount, int transferToFund, string failTran);
+                int transferToAccount, int transferToFund, bool failed);
 
     // getters
     char getTransactionType() const;
@@ -51,6 +51,7 @@ public:
     int getFundID() const;
     int getTransferToFundID() const;
     int getAmount() const;
+    void setFailed(bool isFailed);
 
     bool failedTransaction() const;
 };

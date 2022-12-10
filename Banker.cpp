@@ -28,6 +28,7 @@ bool Banker::execute()
 			else
 			{
 				cout << "Account " << toDo.getAccountID() << " is already open. Transaction Failed";
+				toDo.setFailed(true);
 				break;
 			}
 		case 'D':
@@ -35,6 +36,7 @@ bool Banker::execute()
 			if (!this->accounts.Retrieve(toDo.getAccountID(), toFind))
 			{
 				cout << "Account " << toDo.getAccountID() << " not found. Deposit refused";
+				toDo.setFailed(true);
 				break;
 			}
 			if (!toFind->deposit(toDo.getFundID(), toDo.getAmount()))
@@ -46,10 +48,12 @@ bool Banker::execute()
 			if (!this->accounts.Retrieve(toDo.getAccountID(), toFind))
 			{
 				cout << "Account " << toDo.getAccountID() << " not found. Withdrawal refused";
+				toDo.setFailed(true);
 				break;
 			}
 			if (!toFind->withdraw(toDo.getFundID(), toDo.getAmount()))
 			{
+				toDo.setFailed(true);
 				// SET TRANSACTION TO FAILED
 			}
 			break;
@@ -58,15 +62,18 @@ bool Banker::execute()
 			if (!this->accounts.Retrieve(toDo.getAccountID(), toFind))
 			{
 				cout << "Account " << toDo.getAccountID() << " not found. Tranferal refused";
+				toDo.setFailed(true);
 				break;
 			}
 			if (!this->accounts.Retrieve(toDo.getAccountID(), toFind))
 			{
 				cout << "Account " << toDo.getTransferToAccountID() << " not found. Tranferal refused";
+				toDo.setFailed(true);
 				break;
 			}
 			if (!this->transferFunds(*toFind, toDo.getFundID(), *toFind2, toDo.getTransferToFundID(), toDo.getAmount()))
 			{
+				toDo.setFailed(true);
 				// SET TRANSACTION TO FAILED
 			}
 			break;
@@ -74,6 +81,7 @@ bool Banker::execute()
 			if (!this->accounts.Retrieve(toDo.getAccountID(), toFind))
 			{
 				cout << "Account " << toDo.getAccountID() << " not found. History request refused";
+				toDo.setFailed(true);
 				break;
 			}
 			// TODO: MAKE SURE TO TAKE CARE OF BOTH CASES. SPECIFIC FUND OR EVERY FUND
