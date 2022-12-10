@@ -7,6 +7,18 @@ int main()
 	return 0;
 }
 
+Banker::Banker() {
+	//TBD
+}
+
+Banker::Banker(ifstream inFile) {
+	//TBD
+}
+
+Banker::~Banker() {
+	//TBD
+}
+
 bool Banker::read(std::string fileName)
 {
 	reader = TransactionReader(this->transactionQueue);
@@ -22,6 +34,7 @@ bool Banker::execute()
 
 		switch (toDo.getTransactionType())
 		{
+		Account *toFind;
 		case 'O':
 			if (this->openAccount(toDo.getFirstName(), toDo.getLastName(), to_string(toDo.getAccountID())))
 				break;

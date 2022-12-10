@@ -20,6 +20,7 @@ private:
 
 public:
 	// constructors
+	Banker();
 	Banker(ifstream inputFile);
 	~Banker();
 
