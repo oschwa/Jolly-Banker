@@ -46,15 +46,17 @@ bool Banker::transferFunds(Account &a, int fundA, Account &b, int fundB, int amo
 {
 	if (a.withdraw(fundA, amount))
 	{
+		return (b.deposit(fundB, amount));
 	}
+	return false;
 }
 
 bool Banker::deposit(Account &a, int fund, int amount)
 {
-	return true;
+	return a.deposit(fund, amount);
 }
 
 bool Banker::withdraw(Account &a, int fund, int amount)
 {
-	return true;
+	return a.withdraw(fund, amount);
 }
