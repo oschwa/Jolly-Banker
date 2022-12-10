@@ -24,49 +24,49 @@ public:
     Deposit method for depositing into
     a Fund.
     Pre: Requires an integer for Fund index
-    and a double for the amount being
+    and a int for the amount being
     deposited.
     Post: Returns bool indicating success
     or failure.
     */
-    bool deposit(int f, double amt);
+    bool deposit(int f, int amt);
     /*
     Withdraw method for withdrawing fro
     a Fund.
     Pre: Requires an integer for Fund index
-    and a double for the amount being
+    and a int for the amount being
     withdrawn.
     Post: Returns bool indicating success
     or failure.
     */
-    bool withdraw(int f, double amt);
+    bool withdraw(int f, int amt);
     /*
     Transfer method for transferring between
     two Funds.
     Pre: Requires two integers for Fund indexes
-    and a double for the amount being
+    and a int for the amount being
     transferred.
     Post: Returns bool indicating success
     or failure.
     */
-    bool transfer(int f, int f1, double amt);
+    bool transfer(int f, int f1, int amt);
     /*
     Transfer method for sending an amount to
     a different Account Fund.
     Pre: Requires an integer for Fund index,
-    and a double for the amount being transferred.
+    and a int for the amount being transferred.
     Post: Returns a double representing amount
     transferred.
     */
-    int transferSend(int f, double amt);
+    int transferSend(int f, int amt);
     /*
     Transfer method for receiving an amount from
     a different Account Fund.
     Pre: Requires an integer for Fund index,
-    and a double for the amount being transferred.
+    and a int for the amount being transferred.
     Post: Returns a bool indicating success or failure.
     */
-    bool transferReceive(int f, double amt);
+    bool transferReceive(int f, int amt);
     /*
     Method for retrieving first name.
     Pre: N/A

@@ -13,7 +13,7 @@ Account::Account(std::string firstName, std::string lastName, std::string id)
 
 Account::~Account() {}
 
-bool Account::deposit(int f, double amt)
+bool Account::deposit(int f, int amt)
 {
     if (f > 10 || f < 0)
     {
@@ -22,7 +22,7 @@ bool Account::deposit(int f, double amt)
     return (funds[f].add(amt));
 }
 
-bool Account::withdraw(int f, double amt)
+bool Account::withdraw(int f, int amt)
 {
     if (f > 10 || f < 0)
     {
@@ -31,7 +31,7 @@ bool Account::withdraw(int f, double amt)
     return (funds[f].withdraw(amt));
 }
 
-bool Account::transfer(int f, int f1, double amt)
+bool Account::transfer(int f, int f1, int amt)
 {
     if (f > 10 || f < 0)
     {
@@ -48,13 +48,13 @@ bool Account::transfer(int f, int f1, double amt)
     return true;
 }
 
-int Account::transferSend(int f, double amt)
+int Account::transferSend(int f, int amt)
 {
     withdraw(f, amt);
     return amt;
 }
 
-bool Account::transferReceive(int f, double amt)
+bool Account::transferReceive(int f, int amt)
 {
     if (f > 10 || f < 0)
     {

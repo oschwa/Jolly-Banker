@@ -34,15 +34,19 @@ bool Banker::openAccount(std::string firstName, std::string lastName, std::strin
 
 void Banker::viewHistory(const Account &a)
 {
+	a.viewHistory();
 }
 
 void Banker::viewHistory(const Account &a, int fund)
 {
+	a.viewHistory(fund);
 }
 
 bool Banker::transferFunds(Account &a, int fundA, Account &b, int fundB, int amount)
 {
-	return true;
+	if (a.withdraw(fundA, amount))
+	{
+	}
 }
 
 bool Banker::deposit(Account &a, int fund, int amount)
