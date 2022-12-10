@@ -25,21 +25,21 @@ void TransactionReader::defineTransaction(std::string line) {
     Transaction t;
     char type = line[0];
     if (type == 'D' || type == 'W') {
-        buildTransaction(line, type, t);
+        buildTransaction(line, type);
     }
     else if (type == 'T') {
-        //Transfer
+        defineFundTransfer(line, type);
     }
     else if (type == 'H') {
         //History
     }
     else if (type == 'O') {
-        t = defineAccountOpen(line, type, t);
+        t = defineAccountOpen(line, type);
     }
     readerQueue->push(t);
 }
 
-Transaction& TransactionReader::buildTransaction(std::string line, char type, Transaction t) {
+Transaction& TransactionReader::buildTransaction(std::string line, char type) {
     
     std::string accountId;
     std::string amt;
@@ -66,7 +66,7 @@ Transaction& TransactionReader::buildTransaction(std::string line, char type, Tr
     return new_T;
 }
 
-Transaction& TransactionReader::defineAccountOpen(std::string line, char type, Transaction t) {
+Transaction& TransactionReader::defineAccountOpen(std::string line, char type) {
     std::string firstName = "";
     std::string lastName = "";
     std::string accountId = "";
@@ -96,6 +96,15 @@ Transaction& TransactionReader::defineAccountOpen(std::string line, char type, T
     int converted_accId = std::stoi(accountId);
     Transaction new_T(type, firstName, lastName, converted_accId);
     return new_T;
+}
+
+Transaction& defineFundTransfer(std::string line, char type) {
+    Transaction t;
+    /*
+    Read line and determine Account, funds, and amt.
+    
+    */
+    return t;
 }
 
 #endif //TRANSACTION_READER_CPP
