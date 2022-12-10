@@ -1,15 +1,13 @@
-//Transaction.cpp
+// Transaction.cpp
 
 #include "Transaction.h"
 
 Transaction::Transaction()
 {
-
 }
 
 Transaction::~Transaction()
 {
-
 }
 
 Transaction::Transaction(char typeOfTransaction, string firstName, string lastName, int accountNumber)
@@ -41,7 +39,7 @@ Transaction::Transaction(char typeOfTransaction, int accountNo, int fundNo, int 
     this->amount = amount;
 }
 
-//transaction that fails to process
+// transaction that fails to process
 Transaction::Transaction(char typeOfTransaction, int accountNo, int fundNo, int amount, string failTran)
 {
     this->transactionType = typeOfTransaction;
@@ -61,7 +59,7 @@ Transaction::Transaction(char typeOfTransaction, int accountNo, int fundNo, int 
     this->amount = amount;
 }
 
-//transaction that fails to process
+// transaction that fails to process
 Transaction::Transaction(char typeOfTransaction, int accountNo, int fundNo, int amount, int transferToAccount, int transferToFund, string failTran)
 {
     this->transactionType = typeOfTransaction;
@@ -72,7 +70,6 @@ Transaction::Transaction(char typeOfTransaction, int accountNo, int fundNo, int 
     this->amount = amount;
     this->fail = failTran;
 }
-
 
 char Transaction::getTransactionType() const
 {
@@ -114,8 +111,8 @@ int Transaction::getAmount() const
     return amount;
 }
 
-//Checks if 'fail' is empty, if it is empty the transaction is successfull, if it is not empty the transaction has failedTransaction
-bool Transaction::failedTransaction()
+// Checks if 'fail' is empty, if it is empty the transaction is successfull, if it is not empty the transaction has failedTransaction
+bool Transaction::failedTransaction() const
 {
     if (fail.empty())
     {
@@ -127,14 +124,14 @@ bool Transaction::failedTransaction()
 ////overload operator
 ////If 'fail' is empty then transaction is successful and successfull message is shown,
 ////if 'fail' is not empty then transaction has failed and failedTransaction message is shown
-//ostream & operator<<(ostream & out, const Transaction & trans)
+// ostream & operator<<(ostream & out, const Transaction & trans)
 //{
-//    if (trans.fail.empty())
-//    {
-//        //show message: "successful transaction"
-//    }
-//    else
-//    {
-//        //show message: "failedTransaction transaction"
-//    }
-//}
+//     if (trans.fail.empty())
+//     {
+//         //show message: "successful transaction"
+//     }
+//     else
+//     {
+//         //show message: "failedTransaction transaction"
+//     }
+// }
