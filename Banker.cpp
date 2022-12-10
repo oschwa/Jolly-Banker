@@ -4,9 +4,6 @@
 
 int main()
 {
-	Banker b;
-	b.read("test.txt");
-	b.execute();
 	return 0;
 }
 
