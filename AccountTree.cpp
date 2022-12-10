@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "AccountTree.h"
 
 
@@ -14,7 +14,7 @@ AccountTree::~AccountTree()
 
 bool AccountTree::Insert(Account *insert)
 {
-	int insertAccountID = insert->getAccountID();
+	int insertAccountID = insert->getID();
 	if (insertAccountID < 1000 || insertAccountID > 9999)
 	{
 		cerr << "ERROR: Account Number Not Valid" << endl;
@@ -44,17 +44,17 @@ bool AccountTree::Retrieve(const int & accountNumber, Account *& acc) const
 
 	while (!search) 
 	{
-		if (current != NULL && accountNumber == current->pAcct->getAccountID())
+		if (current != NULL && accountNumber == current->pAcct->getID())
 		{
 			search = true;
 			acc = current->pAcct;
 			return search;
 		}
-		else if(current != NULL && accountNumber > current->pAcct->getAccountID())
+		else if(current != NULL && accountNumber > current->pAcct->getID())
 		{
 			current = current->right;
 		}
-		else if (current != NULL && accountNumber < current->pAcct->getAccountID())
+		else if (current != NULL && accountNumber < current->pAcct->getID())
 		{
 			current = current->left;
 		}
@@ -122,7 +122,7 @@ void AccountTree::recursivePrint(Node* current) const
 
 bool AccountTree::RecursiveInsert(Node* current, Account* insert)
 {
-	if (insert->getAccountID() > current->pAcct->getAccountID())
+	if (insert->getID() > current->pAcct->getID())
 	{
 		if (current->right == NULL)
 		{
@@ -139,7 +139,7 @@ bool AccountTree::RecursiveInsert(Node* current, Account* insert)
 		}
 
 	}
-	else if(insert->getAccountID() < current->pAcct->getAccountID()  )
+	else if(insert->getID() < current->pAcct->getID()  )
 	{
 		if (current->left == NULL)
 		{
@@ -158,7 +158,7 @@ bool AccountTree::RecursiveInsert(Node* current, Account* insert)
 	}
 	else
 	{
-		cerr << "ERROR: Account " << insert->getAccountID() << " is already open. Transaction refused." << endl;
+		cerr << "ERROR: Account " << insert->getID() << " is already open. Transaction refused." << endl;
 		return false;
 	}
 	
