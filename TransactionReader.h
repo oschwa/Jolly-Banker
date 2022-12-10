@@ -12,7 +12,8 @@ private:
     'transactionQueue'.
     */
     std::queue<Transaction> * readerQueue;
-public: 
+public:
+    TransactionReader();
     /*
     Constructor for TransactionReader object.
     readerQueue is assigned to transactionQueue here.
@@ -30,11 +31,11 @@ public:
     Pre: Requires string for line from file.
     Post: Returns a Transaction object reference.
     */
-    bool defineTransaction(std::string line);
+    void defineTransaction(std::string line);
 
-    Transaction& buildTransaction(std::string line, char type);
+    Transaction& buildTransaction(std::string line, char type, Transaction t);
 
-    Transaction& defineAccountOpen(std::string line, char type);
+    Transaction& defineAccountOpen(std::string line, char type, Transaction t);
 
 };
 

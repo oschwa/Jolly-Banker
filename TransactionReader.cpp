@@ -3,6 +3,9 @@
 
 #include "TransactionReader.h"
 
+TransactionReader::TransactionReader() {
+
+}
 TransactionReader::TransactionReader(std::queue<Transaction> * transactionQueue) {
     readerQueue = transactionQueue;
 }
@@ -10,18 +13,19 @@ TransactionReader::TransactionReader(std::queue<Transaction> * transactionQueue)
 bool TransactionReader::read(std::string fileName) {
     std::ifstream inFile;
     inFile.open(fileName);
-    if (inFile.is_open()) {
-        std::string line;
-        inFile >> line;
+    std::string line;
+    while (std::getline(inFile, line)) {
         defineTransaction(line);
     }
+    inFile.close();
+    return true;
 }
 
-bool TransactionReader::defineTransaction(std::string line) {
+void TransactionReader::defineTransaction(std::string line) {
     Transaction t;
     char type = line[0];
     if (type == 'D' || type == 'W') {
-        t = buildTransaction(line, type);
+        buildTransaction(line, type, t);
     }
     else if (type == 'T') {
         //Transfer
@@ -30,14 +34,12 @@ bool TransactionReader::defineTransaction(std::string line) {
         //History
     }
     else if (type == 'O') {
-        t = defineAccountOpen(line, type);
+        t = defineAccountOpen(line, type, t);
     }
-    else {
-        return false;
-    }
+    readerQueue->push(t);
 }
 
-Transaction& TransactionReader::buildTransaction(std::string line, char type) {
+Transaction& TransactionReader::buildTransaction(std::string line, char type, Transaction t) {
     std::string accountId;
     std::string amt;
     int f;
@@ -55,14 +57,17 @@ Transaction& TransactionReader::buildTransaction(std::string line, char type) {
     for (i += 1; i < line.size(); i++) {
         amt += line[i];
     }
-    Transaction t (type, std::stoi(accountId), f, std::stoi(amt));
-    return t;
+
+    int converted_accId = std::stoi(accountId);
+    int converted_amt = std::stoi(amt);
+    Transaction new_T(type, converted_accId, f, converted_amt);
+    return new_T;
 }
 
-Transaction& TransactionReader::defineAccountOpen(std::string line, char type) {
-    std::string firstName;
-    std::string lastName;
-    std::string accountId;
+Transaction& TransactionReader::defineAccountOpen(std::string line, char type, Transaction t) {
+    std::string firstName = "";
+    std::string lastName = "";
+    std::string accountId = "";
 
     int i;
     for (i = 2; i < line.size(); i++) {
@@ -86,8 +91,9 @@ Transaction& TransactionReader::defineAccountOpen(std::string line, char type) {
         accountId += line[i];
     }
 
-    Transaction t (type, firstName, lastName, stoi(accountId));
-    return t;
+    int converted_accId = std::stoi(accountId);
+    Transaction new_T(type, firstName, lastName, converted_accId);
+    return new_T;
 }
 
 #endif //TRANSACTION_READER_CPP
