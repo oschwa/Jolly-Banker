@@ -33,9 +33,12 @@ public:
     */
     void defineTransaction(std::string line);
 
-    Transaction& buildTransaction(std::string line, char type, Transaction t);
+    Transaction& buildTransaction(std::string line, char type);
 
-    Transaction& defineAccountOpen(std::string line, char type, Transaction t);
+    Transaction& defineAccountOpen(std::string line, char type);
+
+    Transaction& defineFundTransfer(std::string line, char type);
+    
 
 };
 
