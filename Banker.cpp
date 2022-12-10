@@ -40,11 +40,6 @@ void Banker::viewHistory(const Account &a, int fund)
 {
 }
 
-bool Banker::transferFunds(Account &a, int fund1, int fund2)
-{
-	return true;
-}
-
 bool Banker::transferFunds(Account &a, int fundA, Account &b, int fundB, int amount)
 {
 	return true;
