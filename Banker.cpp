@@ -32,7 +32,6 @@ bool Banker::execute()
 				break;
 			}
 		case 'D':
-
 			if (!this->accounts.Retrieve(toDo.getAccountID(), toFind))
 			{
 				cout << "Account " << toDo.getAccountID() << " not found. Deposit refused";
@@ -41,7 +40,7 @@ bool Banker::execute()
 			}
 			if (!toFind->deposit(toDo.getFundID(), toDo.getAmount()))
 			{
-				// SET TRANSACTION TO FAILED
+				toDo.setFailed(true);
 			}
 			break;
 		case 'W':
@@ -54,7 +53,6 @@ bool Banker::execute()
 			if (!toFind->withdraw(toDo.getFundID(), toDo.getAmount()))
 			{
 				toDo.setFailed(true);
-				// SET TRANSACTION TO FAILED
 			}
 			break;
 		case 'T':
@@ -74,7 +72,6 @@ bool Banker::execute()
 			if (!this->transferFunds(*toFind, toDo.getFundID(), *toFind2, toDo.getTransferToFundID(), toDo.getAmount()))
 			{
 				toDo.setFailed(true);
-				// SET TRANSACTION TO FAILED
 			}
 			break;
 		case 'H':
