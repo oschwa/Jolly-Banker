@@ -2,10 +2,10 @@
 #define ACCOUNT_CPP
 #include "Account.h"
 
-
 Account::Account() {}
 
-Account::Account(std::string firstName, std::string lastName, std::string id) {
+Account::Account(std::string firstName, std::string lastName, std::string id)
+{
     this->firstName = firstName;
     this->lastName = lastName;
     this->id = id;
@@ -13,26 +13,32 @@ Account::Account(std::string firstName, std::string lastName, std::string id) {
 
 Account::~Account() {}
 
-bool Account::deposit(int f, double amt) {
-    if (f > 10 || f < 0) {
+bool Account::deposit(int f, double amt)
+{
+    if (f > 10 || f < 0)
+    {
         return false;
     }
-    funds[f].add(amt);
-    return true;
+    return (funds[f].add(amt));
 }
 
-bool Account::withdraw(int f, double amt) {
-    if (f > 10 || f < 0) {
+bool Account::withdraw(int f, double amt)
+{
+    if (f > 10 || f < 0)
+    {
         return false;
     }
-    funds[f].withdraw(amt);
+    return (funds[f].withdraw(amt));
 }
 
-bool Account::transfer(int f, int f1, double amt) {
-    if (f > 10 || f < 0) {
+bool Account::transfer(int f, int f1, double amt)
+{
+    if (f > 10 || f < 0)
+    {
         return false;
     }
-    else if (f1 > 10 || f1 < 0) {
+    else if (f1 > 10 || f1 < 0)
+    {
         return false;
     }
 
@@ -42,13 +48,16 @@ bool Account::transfer(int f, int f1, double amt) {
     return true;
 }
 
-double Account::transferSend(int f, double amt) {
+int Account::transferSend(int f, double amt)
+{
     withdraw(f, amt);
     return amt;
 }
 
-bool Account::transferReceive(int f, double amt) {
-    if (f > 10 || f < 0) {
+bool Account::transferReceive(int f, double amt)
+{
+    if (f > 10 || f < 0)
+    {
         return false;
     }
 
@@ -56,20 +65,29 @@ bool Account::transferReceive(int f, double amt) {
     return true;
 }
 
-std::string Account::getFirstName() {
+std::string Account::getFirstName()
+{
     return firstName;
 }
 
-std::string Account::getLastName() {
+std::string Account::getLastName()
+{
     return lastName;
 }
 
-std::string Account::getId() {
+std::string Account::getId()
+{
     return id;
 }
 
-double check(int f) {
-    //return funds[f].check();
+Fund *Account::getFund(int f)
+{
+    return &funds[f];
 }
 
-#endif //FUNDS_CPP
+int Account::getBalance(int f)
+{
+    return funds[f].getBalance();
+}
+
+#endif // FUNDS_CPP

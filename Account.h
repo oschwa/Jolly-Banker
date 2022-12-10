@@ -2,16 +2,15 @@
 #define ACCOUNT_H
 #include <string>
 #include "Fund.h"
-class Account {
+class Account
+{
 private:
-    
-    //Array of client Fund objects.
+    // Array of client Fund objects.
     Fund funds[10];
-    //Unique four-digit identifier.
+    // Unique four-digit identifier.
     std::string id;
-    //Name
+    // Name
     std::string firstName, lastName;
-
 
 public:
     /*
@@ -22,7 +21,7 @@ public:
     ~Account();
 
     /*
-    Deposit method for depositing into 
+    Deposit method for depositing into
     a Fund.
     Pre: Requires an integer for Fund index
     and a double for the amount being
@@ -38,7 +37,7 @@ public:
     and a double for the amount being
     withdrawn.
     Post: Returns bool indicating success
-    or failure. 
+    or failure.
     */
     bool withdraw(int f, double amt);
     /*
@@ -59,7 +58,7 @@ public:
     Post: Returns a double representing amount
     transferred.
     */
-    double transferSend(int f, double amt);
+    int transferSend(int f, double amt);
     /*
     Transfer method for receiving an amount from
     a different Account Fund.
@@ -71,31 +70,37 @@ public:
     /*
     Method for retrieving first name.
     Pre: N/A
-    Post: Returns string representing 
+    Post: Returns string representing
     Account first name.
     */
     std::string getFirstName();
     /*
     Method for retrieving last name.
     Pre: N/A
-    Post: Returns string representing 
+    Post: Returns string representing
     Account last name.
     */
     std::string getLastName();
     /*
     Method for retrieving id.
     Pre: N/A
-    Post: Returns string representing 
+    Post: Returns string representing
     Account id.
     */
     std::string getId();
     /*
     Method for viewing amount in a Fund.
     Pre: Requires integer for Fund index.
-    Post: Returns double representing 
+    Post: Returns double representing
     amount in Fund.
     */
-    double checkFund(int f);
+    int getBalance(int f);
+    /*
+    Method for receiving a fund in account.
+    Pre: Requires an integer for Fund index
+    Post: Returns Fund Pointer
+     */
+    Fund *getFund(int f);
 };
 
-#endif //ACCOUNT_H
+#endif // ACCOUNT_H
