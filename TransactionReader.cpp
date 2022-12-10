@@ -40,6 +40,7 @@ void TransactionReader::defineTransaction(std::string line) {
 }
 
 Transaction& TransactionReader::buildTransaction(std::string line, char type, Transaction t) {
+    
     std::string accountId;
     std::string amt;
     int f;
