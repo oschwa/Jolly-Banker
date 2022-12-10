@@ -68,10 +68,6 @@ int Account::getId() {
     return id;
 }
 
-double check(int f) {
-    //return funds[f].check();
-}
-
 std::ostream& operator << (std::ostream& os, const Account& a) {
     os << a.firstName << " " << a.lastName << " " << "Account ID:" << " " << a.id << endl;
     os << "Money Market: " << "$" << a.funds[0].getBalance() << endl;
