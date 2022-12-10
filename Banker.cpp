@@ -19,7 +19,68 @@ bool Banker::execute()
 	{
 		Transaction toDo = transactionQueue->front();
 
-		// TODO: complete transaction
+		switch (toDo.getTransactionType())
+		{
+		case 'O':
+			if (this->openAccount(toDo.getFirstName(), toDo.getLastName(), to_string(toDo.getAccountID())))
+				break;
+			else
+			{
+				cout << "Account " << toDo.getAccountID() << " is already open. Transaction Failed";
+				break;
+			}
+		case 'D':
+			Account *toFind;
+			if (!this->accounts.Retrieve(toDo.getAccountID(), toFind))
+			{
+				cout << "Account " << toDo.getAccountID() << " not found. Deposit refused";
+				break;
+			}
+			if (!toFind->deposit(toDo.getFundID(), toDo.getAmount()))
+			{
+				// SET TRANSACTION TO FAILED
+			}
+			break;
+		case 'W':
+			Account *toFind;
+			if (!this->accounts.Retrieve(toDo.getAccountID(), toFind))
+			{
+				cout << "Account " << toDo.getAccountID() << " not found. Withdrawal refused";
+				break;
+			}
+			if (!toFind->withdraw(toDo.getFundID(), toDo.getAmount()))
+			{
+				// SET TRANSACTION TO FAILED
+			}
+			break;
+		case 'T':
+			Account *account1;
+			Account *account2;
+			if (!this->accounts.Retrieve(toDo.getAccountID(), account1))
+			{
+				cout << "Account " << toDo.getAccountID() << " not found. Tranferal refused";
+				break;
+			}
+			if (!this->accounts.Retrieve(toDo.getAccountID(), account1))
+			{
+				cout << "Account " << toDo.getTransferToAccountID() << " not found. Tranferal refused";
+				break;
+			}
+			if (!this->transferFunds(*account1, toDo.getFundID(), *account2, toDo.getTransferToFundID(), toDo.getAmount()))
+			{
+				// SET TRANSACTION TO FAILED
+			}
+			break;
+		case 'H':
+			Account *toFind;
+			if (!this->accounts.Retrieve(toDo.getAccountID(), toFind))
+			{
+				cout << "Account " << toDo.getAccountID() << " not found. History request refused";
+				break;
+			}
+			// TODO: MAKE SURE TO TAKE CARE OF BOTH CASES. SPECIFIC FUND OR EVERY FUND
+			break;
+		}
 
 		transactionQueue->pop();
 	}
