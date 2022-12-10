@@ -95,12 +95,10 @@ public:
     amount in Fund.
     */
     int getBalance(int f);
-    /*
-    Method for receiving a fund in account.
-    Pre: Requires an integer for Fund index
-    Post: Returns Fund Pointer
-     */
-    Fund *getFund(int f);
+
+    void viewHistory();
+
+    void viewHistory(int f);
 };
 
 #endif // ACCOUNT_H

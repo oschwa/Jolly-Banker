@@ -121,6 +121,6 @@ bool Fund::operator==(const Fund &other) const
 
 ostream &operator<<(ostream &OUT, const Fund &other)
 {
-    OUT << other.name << ": $" << other.balance << endl;
+    OUT << other.name << ": $" << other.balance;
     return OUT;
 }

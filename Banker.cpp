@@ -32,7 +32,7 @@ bool Banker::openAccount(std::string firstName, std::string lastName, std::strin
 	return (this->accounts.Insert(newAccount));
 }
 
-void Banker::viewHistory(const Account &a)
+void Banker::viewHistory(Account &a)
 {
 }
 

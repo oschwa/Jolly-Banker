@@ -80,14 +80,28 @@ std::string Account::getId()
     return id;
 }
 
-Fund *Account::getFund(int f)
-{
-    return &funds[f];
-}
-
 int Account::getBalance(int f)
 {
     return funds[f].getBalance();
+}
+
+void Account::viewHistory()
+{
+    cout << "Transaction History for " << this->firstName << " " << this->lastName << " by fund." << endl;
+    for (int i = 0; i < 10; i++)
+    {
+        cout << funds[i] << endl
+             << " ";
+        funds[i].displayHistory();
+    }
+}
+
+void Account::viewHistory(int f)
+{
+    cout << "Transaction History for " << this->firstName << " " << this->lastName << " ";
+    cout << funds[f] << endl
+         << " ";
+    funds[f].displayHistory();
 }
 
 #endif // FUNDS_CPP
