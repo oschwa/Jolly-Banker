@@ -18,6 +18,7 @@ bool Banker::execute()
 	while (!transactionQueue->empty())
 	{
 		Transaction toDo = transactionQueue->front();
+		Account *toFind;
 
 		switch (toDo.getTransactionType())
 		{
@@ -30,7 +31,7 @@ bool Banker::execute()
 				break;
 			}
 		case 'D':
-			Account *toFind;
+
 			if (!this->accounts.Retrieve(toDo.getAccountID(), toFind))
 			{
 				cout << "Account " << toDo.getAccountID() << " not found. Deposit refused";
@@ -42,7 +43,6 @@ bool Banker::execute()
 			}
 			break;
 		case 'W':
-			Account *toFind;
 			if (!this->accounts.Retrieve(toDo.getAccountID(), toFind))
 			{
 				cout << "Account " << toDo.getAccountID() << " not found. Withdrawal refused";
@@ -54,25 +54,23 @@ bool Banker::execute()
 			}
 			break;
 		case 'T':
-			Account *account1;
-			Account *account2;
-			if (!this->accounts.Retrieve(toDo.getAccountID(), account1))
+			Account *toFind2;
+			if (!this->accounts.Retrieve(toDo.getAccountID(), toFind))
 			{
 				cout << "Account " << toDo.getAccountID() << " not found. Tranferal refused";
 				break;
 			}
-			if (!this->accounts.Retrieve(toDo.getAccountID(), account1))
+			if (!this->accounts.Retrieve(toDo.getAccountID(), toFind))
 			{
 				cout << "Account " << toDo.getTransferToAccountID() << " not found. Tranferal refused";
 				break;
 			}
-			if (!this->transferFunds(*account1, toDo.getFundID(), *account2, toDo.getTransferToFundID(), toDo.getAmount()))
+			if (!this->transferFunds(*toFind, toDo.getFundID(), *toFind2, toDo.getTransferToFundID(), toDo.getAmount()))
 			{
 				// SET TRANSACTION TO FAILED
 			}
 			break;
 		case 'H':
-			Account *toFind;
 			if (!this->accounts.Retrieve(toDo.getAccountID(), toFind))
 			{
 				cout << "Account " << toDo.getAccountID() << " not found. History request refused";
