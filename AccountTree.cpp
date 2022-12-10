@@ -1,11 +1,9 @@
 
 #include "AccountTree.h"
 
-
 AccountTree::AccountTree()
 {
 }
-
 
 AccountTree::~AccountTree()
 {
@@ -14,7 +12,7 @@ AccountTree::~AccountTree()
 
 bool AccountTree::Insert(Account *insert)
 {
-	int insertAccountID = insert->getID();
+	int insertAccountID = stoi(insert->getId());
 	if (insertAccountID < 1000 || insertAccountID > 9999)
 	{
 		cerr << "ERROR: Account Number Not Valid" << endl;
@@ -37,24 +35,24 @@ bool AccountTree::Insert(Account *insert)
 	return false;
 }
 
-bool AccountTree::Retrieve(const int & accountNumber, Account *& acc) const
+bool AccountTree::Retrieve(const int &accountNumber, Account *&acc) const
 {
 	Node *current = root;
 	bool search = false;
 
-	while (!search) 
+	while (!search)
 	{
-		if (current != NULL && accountNumber == current->pAcct->getID())
+		if (current != NULL && accountNumber == stoi(current->pAcct->getId()))
 		{
 			search = true;
 			acc = current->pAcct;
 			return search;
 		}
-		else if(current != NULL && accountNumber > current->pAcct->getID())
+		else if (current != NULL && accountNumber > stoi(current->pAcct->getId()))
 		{
 			current = current->right;
 		}
-		else if (current != NULL && accountNumber < current->pAcct->getID())
+		else if (current != NULL && accountNumber < stoi(current->pAcct->getId()))
 		{
 			current = current->left;
 		}
@@ -62,9 +60,8 @@ bool AccountTree::Retrieve(const int & accountNumber, Account *& acc) const
 		{
 			search = true;
 		}
-
 	}
-	cerr << "ERROR: Account Number " << accountNumber  << " Cannot Be Found" << endl;
+	cerr << "ERROR: Account Number " << accountNumber << " Cannot Be Found" << endl;
 	return false;
 }
 
@@ -95,8 +92,8 @@ bool AccountTree::isEmpty() const
 	}
 }
 
-void AccountTree::recursivePrint(Node* current) const
-{	
+void AccountTree::recursivePrint(Node *current) const
+{
 	if (current->right != NULL && current->left != NULL)
 	{
 		recursivePrint(current->right);
@@ -117,12 +114,11 @@ void AccountTree::recursivePrint(Node* current) const
 	{
 		cout << *(current->pAcct) << endl;
 	}
-
 }
 
-bool AccountTree::RecursiveInsert(Node* current, Account* insert)
+bool AccountTree::RecursiveInsert(Node *current, Account *insert)
 {
-	if (insert->getID() > current->pAcct->getID())
+	if (stoi(insert->getId()) > stoi(current->pAcct->getId()))
 	{
 		if (current->right == NULL)
 		{
@@ -137,9 +133,8 @@ bool AccountTree::RecursiveInsert(Node* current, Account* insert)
 		{
 			return RecursiveInsert(current->right, insert);
 		}
-
 	}
-	else if(insert->getID() < current->pAcct->getID()  )
+	else if (stoi(insert->getId()) < stoi(current->pAcct->getId()))
 	{
 		if (current->left == NULL)
 		{
@@ -154,12 +149,10 @@ bool AccountTree::RecursiveInsert(Node* current, Account* insert)
 		{
 			return RecursiveInsert(current->left, insert);
 		}
-
 	}
 	else
 	{
-		cerr << "ERROR: Account " << insert->getID() << " is already open. Transaction refused." << endl;
+		cerr << "ERROR: Account " << insert->getId() << " is already open. Transaction refused." << endl;
 		return false;
 	}
-	
 }
