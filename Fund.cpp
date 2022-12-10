@@ -59,7 +59,7 @@ bool Fund::addTransaction(Transaction trans)
     return true;
 }
 
-void Fund::displayHistory()
+void Fund::displayHistory() const
 {
     cout << *this << endl;
     for (int i = 0; i < this->history.size(); i++)

@@ -73,32 +73,34 @@ public:
     Post: Returns string representing
     Account first name.
     */
-    std::string getFirstName();
+    std::string getFirstName() const;
     /*
     Method for retrieving last name.
     Pre: N/A
     Post: Returns string representing
     Account last name.
     */
-    std::string getLastName();
+    std::string getLastName() const;
     /*
     Method for retrieving id.
     Pre: N/A
     Post: Returns string representing
     Account id.
     */
-    std::string getId();
+    std::string getId() const;
     /*
     Method for viewing amount in a Fund.
     Pre: Requires integer for Fund index.
     Post: Returns double representing
     amount in Fund.
     */
-    int getBalance(int f);
+    int getBalance(int f) const;
 
-    void viewHistory();
+    void viewHistory() const;
 
-    void viewHistory(int f);
+    void viewHistory(int f) const;
+
+    friend ostream &operator<<(ostream &OUT, const Account &a);
 };
 
 #endif // ACCOUNT_H

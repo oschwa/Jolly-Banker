@@ -65,27 +65,27 @@ bool Account::transferReceive(int f, double amt)
     return true;
 }
 
-std::string Account::getFirstName()
+std::string Account::getFirstName() const
 {
     return firstName;
 }
 
-std::string Account::getLastName()
+std::string Account::getLastName() const
 {
     return lastName;
 }
 
-std::string Account::getId()
+std::string Account::getId() const
 {
     return id;
 }
 
-int Account::getBalance(int f)
+int Account::getBalance(int f) const
 {
     return funds[f].getBalance();
 }
 
-void Account::viewHistory()
+void Account::viewHistory() const
 {
     cout << "Transaction History for " << this->firstName << " " << this->lastName << " by fund." << endl;
     for (int i = 0; i < 10; i++)
@@ -96,12 +96,21 @@ void Account::viewHistory()
     }
 }
 
-void Account::viewHistory(int f)
+void Account::viewHistory(int f) const
 {
     cout << "Transaction History for " << this->firstName << " " << this->lastName << " ";
     cout << funds[f] << endl
          << " ";
     funds[f].displayHistory();
+}
+
+ostream &operator<<(ostream &OUT, const Account &a)
+{
+    OUT << a.firstName << " " << a.lastName << " Account ID: " << a.id;
+    for (int i = 0; i < 10; i++)
+    {
+        OUT << " " << a.funds[i] << endl;
+    }
 }
 
 #endif // FUNDS_CPP

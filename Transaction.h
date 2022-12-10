@@ -1,4 +1,4 @@
-//Transaction.h
+// Transaction.h
 
 #ifndef TRANSACTION_H
 #define TRANSACTION_H
@@ -24,7 +24,7 @@ private:
     string fail;
 
 public:
-    //constructor/destructor
+    // constructor/destructor
     Transaction();
     ~Transaction();
 
@@ -33,16 +33,16 @@ public:
     Transaction(char typeOfTransaction, int accountNo);
     Transaction(char typeOfTransaction, int accountNo, int fundNo);
     Transaction(char typeOfTransaction, int accountNo, int fundNo, int amount);
-    //transaction that fails to process
+    // transaction that fails to process
     Transaction(char typeOfTransaction, int accountNo, int fundNo, int amount, string failTran);
 
     Transaction(char typeOfTransaction, int accountNo, int fundNo, int amount,
                 int transferToAccount, int transferToFund);
-    //transaction that fails to process
+    // transaction that fails to process
     Transaction(char typeOfTransaction, int accountNo, int fundNo, int amount,
                 int transferToAccount, int transferToFund, string failTran);
 
-    //getters
+    // getters
     char getTransactionType() const;
     string getFirstName() const;
     string getLastName() const;
@@ -52,7 +52,7 @@ public:
     int getTransferToFundID() const;
     int getAmount() const;
 
-    bool failedTransaction();
+    bool failedTransaction() const;
 };
 
-#endif //TRANSACTION_H
+#endif // TRANSACTION_H

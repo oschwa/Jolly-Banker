@@ -95,7 +95,7 @@ public:
 	 *
 	 * @post Transaction history printed to console
 	 */
-	void displayHistory();
+	void displayHistory() const;
 
 	// operator overloads (Compared via balance)
 	bool operator<(const Fund &other) const;
