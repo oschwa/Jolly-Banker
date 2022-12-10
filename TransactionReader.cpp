@@ -18,9 +18,10 @@ bool TransactionReader::read(std::string fileName) {
 }
 
 bool TransactionReader::defineTransaction(std::string line) {
+    Transaction t;
     char type = line[0];
     if (type == 'D' || type == 'W') {
-        buildTransaction(line, type);
+        t = buildTransaction(line, type);
     }
     else if (type == 'T') {
         //Transfer
@@ -29,32 +30,64 @@ bool TransactionReader::defineTransaction(std::string line) {
         //History
     }
     else if (type == 'O') {
-        //Open account
+        t = defineAccountOpen(line, type);
     }
     else {
         return false;
     }
 }
 
-bool buildTransaction(std::string line, char type) {
+Transaction& TransactionReader::buildTransaction(std::string line, char type) {
     std::string accountId;
-        std::string amt;
-        int f;
-        int i;
-        //Account id obtained here.
-        for (i = 2; i < line.size(); i++) {
-            if (line[i]==' ') {
-                break;
-            }
-            accountId += line[i];
+    std::string amt;
+    int f;
+    int i;
+    //Account id obtained here.
+    for (i = 2; i < line.size(); i++) {
+        if (line[i]==' ') {
+            break;
         }
-        //Fund index is converted to int.
-        f = accountId[accountId.size()-1];
-        //Deposit amount obtained here.
-        for (i += 1; i < line.size(); i++) {
-            amt += line[i];
+        accountId += line[i];
+    }
+    //Fund index is converted to int.
+    f = accountId[accountId.size()-1];
+    //Deposit amount obtained here.
+    for (i += 1; i < line.size(); i++) {
+        amt += line[i];
+    }
+    Transaction t (type, std::stoi(accountId), f, std::stoi(amt));
+    return t;
+}
+
+Transaction& TransactionReader::defineAccountOpen(std::string line, char type) {
+    std::string firstName;
+    std::string lastName;
+    std::string accountId;
+
+    int i;
+    for (i = 2; i < line.size(); i++) {
+        if (line[i]==' ') {
+            break;
         }
-        Transaction t (type, std::stoi(accountId), f, std::stoi(amt));
+        firstName += line[i];
+    }
+
+    for (i += 1; i < line.size(); i++) {
+        if (line[i]==' ') {
+            break;
+        }
+        lastName += line[i];
+    }
+
+    for (i += 1; i < line.size(); i++) {
+        if (line[i]==' ') {
+            break;
+        }
+        accountId += line[i];
+    }
+
+    Transaction t (type, firstName, lastName, stoi(accountId));
+    return t;
 }
 
 #endif //TRANSACTION_READER_CPP
