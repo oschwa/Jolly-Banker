@@ -14,15 +14,14 @@ public:
 	void Empty();
 	bool isEmpty() const;
 
-
 private:
 	struct Node
 	{
-		Node* left = NULL;
-		Node* right = NULL;
+		Node *left;
+		Node *right;
 		Account *pAcct;
 	};
-	Node* root = NULL;
-	bool RecursiveInsert(Node* cur, Account *insert);
+	Node *root;
+	bool RecursiveInsert(Node *cur, Account *insert);
 	void recursivePrint(Node *printNode) const;
 };

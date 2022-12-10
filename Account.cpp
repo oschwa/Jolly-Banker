@@ -111,6 +111,7 @@ ostream &operator<<(ostream &OUT, const Account &a)
     {
         OUT << " " << a.funds[i] << endl;
     }
+    return OUT;
 }
 
 #endif // FUNDS_CPP
