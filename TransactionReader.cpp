@@ -58,6 +58,7 @@ Transaction& TransactionReader::buildTransaction(std::string line, char type, Tr
         amt += line[i];
     }
 
+
     int converted_accId = std::stoi(accountId);
     int converted_amt = std::stoi(amt);
     Transaction new_T(type, converted_accId, f, converted_amt);
