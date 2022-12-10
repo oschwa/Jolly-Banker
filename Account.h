@@ -2,13 +2,14 @@
 #define ACCOUNT_H
 #include <string>
 #include "Fund.h"
+#include <iostream>
 class Account {
 private:
     
     //Array of client Fund objects.
     Fund funds[10];
     //Unique four-digit identifier.
-    std::string id;
+    int id;
     //Name
     std::string firstName, lastName;
 
@@ -88,14 +89,16 @@ public:
     Post: Returns string representing 
     Account id.
     */
-    std::string getId();
+    int getId();
     /*
     Method for viewing amount in a Fund.
     Pre: Requires integer for Fund index.
     Post: Returns double representing 
     amount in Fund.
     */
-    double checkFund(int f);
+    int checkFund(int f);
+
+    friend std::ostream& operator << (std::ostream& os, const Account& a);
 };
 
 #endif //ACCOUNT_H

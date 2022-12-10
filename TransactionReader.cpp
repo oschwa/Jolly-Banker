@@ -11,17 +11,21 @@ bool TransactionReader::read(std::string fileName) {
     std::ifstream inFile;
     inFile.open(fileName);
     if (inFile.is_open()) {
-        std::string line;
-        inFile >> line;
-        defineTransaction(line);
+        while (true) {
+            std::string line;
+            inFile >> line;
+            defineTransaction(line);
+        }
     }
+    inFile.close();
+    return true;
 }
 
-bool TransactionReader::defineTransaction(std::string line) {
+void TransactionReader::defineTransaction(std::string line) {
     Transaction t;
     char type = line[0];
     if (type == 'D' || type == 'W') {
-        t = buildTransaction(line, type);
+        buildTransaction(line, type, t);
     }
     else if (type == 'T') {
         //Transfer
@@ -30,14 +34,13 @@ bool TransactionReader::defineTransaction(std::string line) {
         //History
     }
     else if (type == 'O') {
-        t = defineAccountOpen(line, type);
+        defineAccountOpen(line, type, t);
     }
-    else {
-        return false;
-    }
+
+    readerQueue->push(t);
 }
 
-Transaction& TransactionReader::buildTransaction(std::string line, char type) {
+void TransactionReader::buildTransaction(std::string line, char type, Transaction& t) {
     std::string accountId;
     std::string amt;
     int f;
@@ -55,11 +58,11 @@ Transaction& TransactionReader::buildTransaction(std::string line, char type) {
     for (i += 1; i < line.size(); i++) {
         amt += line[i];
     }
-    Transaction t (type, std::stoi(accountId), f, std::stoi(amt));
-    return t;
+    Transaction newTransaction (type, std::stoi(accountId), f, std::stoi(amt));
+    t = newTransaction;
 }
 
-Transaction& TransactionReader::defineAccountOpen(std::string line, char type) {
+void TransactionReader::defineAccountOpen(std::string line, char type, Transaction& t) {
     std::string firstName;
     std::string lastName;
     std::string accountId;
@@ -86,8 +89,8 @@ Transaction& TransactionReader::defineAccountOpen(std::string line, char type) {
         accountId += line[i];
     }
 
-    Transaction t (type, firstName, lastName, stoi(accountId));
-    return t;
+    Transaction newTransaction (type, firstName, lastName, stoi(accountId));
+    t = newTransaction;
 }
 
 #endif //TRANSACTION_READER_CPP

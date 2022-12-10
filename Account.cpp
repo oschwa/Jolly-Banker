@@ -8,7 +8,7 @@ Account::Account() {}
 Account::Account(std::string firstName, std::string lastName, std::string id) {
     this->firstName = firstName;
     this->lastName = lastName;
-    this->id = id;
+    this->id = stoi(id);
 }
 
 Account::~Account() {}
@@ -64,12 +64,27 @@ std::string Account::getLastName() {
     return lastName;
 }
 
-std::string Account::getId() {
+int Account::getId() {
     return id;
 }
 
 double check(int f) {
     //return funds[f].check();
+}
+
+std::ostream& operator << (std::ostream& os, const Account& a) {
+    os << a.firstName << " " << a.lastName << " " << "Account ID:" << " " << a.id << endl;
+    os << "Money Market: " << "$" << a.funds[0].getBalance() << endl;
+    os << "Prime Money Market: " << "$" << a.funds[1].getBalance() << endl;
+    os << "Long-Term Bond: " << "$" << a.funds[2].getBalance() << endl;
+    os << "Short-Term Bond: " << "$" << a.funds[3].getBalance() << endl;
+    os << "500 Index Fund : " << "$" << a.funds[4].getBalance() << endl;
+    os << "Capital Value Fund: " << "$" << a.funds[5].getBalance() << endl;
+    os << "Growth Equity Fund: " << "$" << a.funds[6].getBalance() << endl;
+    os << "Growth Index Fund: " << "$" << a.funds[7].getBalance() << endl;
+    os << "Value Fund: " << "$" << a.funds[8].getBalance() << endl;
+    os << "Value Stock Index: " << "$" << a.funds[8].getBalance() << endl;
+    return os;
 }
 
 #endif //FUNDS_CPP
