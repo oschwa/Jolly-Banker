@@ -55,11 +55,11 @@ void TransactionReader::defineTransaction(std::string line)
     char type = line[0];
     if (type == 'D' || type == 'W')
     {
-        defineDepositWithdrawal(line, type);
+        t = defineDepositWithdrawal(line, type);
     }
     else if (type == 'T')
     {
-        defineFundTransfer(line, type);
+        t = defineFundTransfer(line, type);
     }
     else if (type == 'H')
     {
