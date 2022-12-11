@@ -104,6 +104,11 @@ void Account::viewHistory(int f) const
     funds[f].displayHistory();
 }
 
+bool Account::addHistory(int f, Transaction *toAdd)
+{
+    this->funds[f].addTransaction(toAdd);
+}
+
 ostream &operator<<(ostream &OUT, const Account &a)
 {
     OUT << a.firstName << " " << a.lastName << " Account ID: " << a.id;

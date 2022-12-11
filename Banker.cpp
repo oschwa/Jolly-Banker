@@ -58,6 +58,7 @@ bool Banker::execute()
 			{
 				toDo.setFailed(true);
 			}
+			toFind->addHistory(toDo.getFundID(), &toDo);
 			break;
 		case 'W':
 			if (!this->accounts.Retrieve(toDo.getAccountID(), toFind))
@@ -70,6 +71,7 @@ bool Banker::execute()
 			{
 				toDo.setFailed(true);
 			}
+			toFind->addHistory(toDo.getFundID(), &toDo);
 			break;
 		case 'T':
 			Account *toFind2;
@@ -89,6 +91,7 @@ bool Banker::execute()
 			{
 				toDo.setFailed(true);
 			}
+			toFind->addHistory(toDo.getFundID(), &toDo);
 			break;
 		case 'H':
 			if (!this->accounts.Retrieve(toDo.getAccountID(), toFind))
