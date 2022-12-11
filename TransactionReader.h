@@ -39,6 +39,7 @@ public:
 
     Transaction& defineFundTransfer(std::string line, char type);
     
+    Transaction& defineHistoryQuery(std::string line, char type);
 
 };
 

@@ -172,4 +172,25 @@ Transaction& TransactionReader::defineFundTransfer(std::string line, char type) 
     return *new_T;
 }
 
+Transaction& TransactionReader::defineHistoryQuery(std::string line, char type) {
+    Transaction * new_T;
+    std::string account;
+
+    //Store account Id for lookup.
+    for (int i = 2; i < line.size(); i++) {
+        account += line[i];
+    }
+
+    //Determine if a Fund index is included.
+    if (account.size() == 5) {
+        int f_index = account[account.size()-1];
+        account.erase(account.size()-1);
+        new_T = new Transaction(type, std::stoi(account), f_index-48);
+        return *new_T;
+    }
+    
+    new_T = new Transaction(type, std::stoi(account));
+    return *new_T;
+}
+
 #endif // TRANSACTION_READER_CPP
