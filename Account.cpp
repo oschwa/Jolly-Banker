@@ -111,6 +111,11 @@ void Account::viewHistory() const
     }
 }
 
+Fund &Account::getFund(int f)
+{
+    return funds[f];
+}
+
 void Account::viewHistory(int f) const
 {
     cout << "Transaction History for " << this->firstName << " " << this->lastName << " ";

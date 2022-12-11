@@ -38,6 +38,7 @@ void TransactionReader::defineTransaction(std::string line)
     else if (type == 'H')
     {
         // History
+        t = defineHistoryQuery(line, type);
     }
     else if (type == 'O')
     {

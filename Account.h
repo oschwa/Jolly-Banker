@@ -98,6 +98,8 @@ public:
 
     std::string getNameOfFund(int f);
 
+    Fund &getFund(int f);
+
     void viewHistory() const;
 
     void viewHistory(int f) const;
