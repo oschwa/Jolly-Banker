@@ -58,12 +58,11 @@ bool Banker::execute()
 			break;
 		case 'H':
 			this->processHistory(toDo, a);
-			// TODO: MAKE SURE TO TAKE CARE OF BOTH CASES. SPECIFIC FUND OR EVERY FUND
 			break;
 		}
-
 		transactionQueue->pop();
 	}
+	this->accounts.Display();
 	return true;
 }
 
@@ -167,8 +166,6 @@ void Banker::processHistory(Transaction &toDo, Account *a)
 	if (!this->accounts.Retrieve(toDo.getAccountID(), a))
 	{
 		cout << "Account " << toDo.getAccountID() << " not found. History request refused" << endl;
-		toDo.setFailed(true);
+		return;
 	}
-
-	a->addHistory(toDo.getFundID(), &toDo);
 }
