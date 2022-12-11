@@ -96,6 +96,8 @@ public:
     */
     int getBalance(int f) const;
 
+    std::string getNameOfFund(int f);
+
     void viewHistory() const;
 
     void viewHistory(int f) const;

@@ -95,6 +95,11 @@ int Account::getBalance(int f) const
     return funds[f].getBalance();
 }
 
+std::string Account::getNameOfFund(int f)
+{
+    return this->funds[f].getName();
+}
+
 void Account::viewHistory() const
 {
     cout << "Transaction History for " << this->firstName << " " << this->lastName << " by fund." << endl;
