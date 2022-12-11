@@ -128,6 +128,16 @@ bool Transaction::failedTransaction() const
     return this->failed;
 }
 
+void Transaction::setFirstName(std::string firstName)
+{
+    this->firstName = firstName;
+}
+
+void Transaction::setLastName(std::string lastName)
+{
+    this->lastName = lastName;
+}
+
 ////overload operator
 ////If 'fail' is empty then transaction is successful and successfull message is shown,
 ////if 'fail' is not empty then transaction has failed and failedTransaction message is shown

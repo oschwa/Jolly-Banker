@@ -52,6 +52,8 @@ public:
     int getTransferToFundID() const;
     int getAmount() const;
     void setFailed(bool isFailed);
+    void setFirstName(std::string firstName);
+    void setLastName(std::string lastName);
 
     bool failedTransaction() const;
 };
