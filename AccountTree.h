@@ -1,6 +1,9 @@
 #pragma once
 #include "Account.h"
 
+//Add comments for methods DETAILED
+
+
 class AccountTree
 {
 public:
