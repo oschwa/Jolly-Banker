@@ -39,8 +39,10 @@ bool TransactionReader::read(std::string fileName)
     std::string line;
     while (std::getline(inFile, line))
     {
+        std::cout << line << std::endl;
         defineTransaction(line);
     }
+    inFile.close();
     return true;
 }
 
@@ -63,7 +65,6 @@ void TransactionReader::defineTransaction(std::string line)
     }
     else if (type == 'H')
     {
-        // History
         t = defineHistoryQuery(line, type);
     }
     else if (type == 'O')

@@ -19,93 +19,117 @@ public:
     Account();
     Account(std::string firstName, std::string lastName, std::string id);
     ~Account();
-
-    /*
-    Deposit method for depositing into
-    a Fund.
-    Pre: Requires an integer for Fund index
-    and a int for the amount being
-    deposited.
-    Post: Returns bool indicating success
-    or failure.
+    
+    /**
+     * Deposit method for depositing into a Fund.
+     * @param f An integer for Fund index.
+     * @param amt An integer for deposit amount.
+     * @post Returns bool indicating success
+     * or failure.
     */
     bool deposit(int f, int amt);
-    /*
-    Withdraw method for withdrawing fro
-    a Fund.
-    Pre: Requires an integer for Fund index
-    and a int for the amount being
-    withdrawn.
-    Post: Returns bool indicating success
-    or failure.
+    /**
+     * Withdraw method for depositing into a Fund.
+     * @param f An integer for Fund index.
+     * @param amt An integer for withdraw amount.
+     * @post Returns bool indicating success
+     * or failure.
     */
     bool withdraw(int f, int amt);
-    /*
-    Transfer method for transferring between
-    two Funds.
-    Pre: Requires two integers for Fund indexes
-    and a int for the amount being
-    transferred.
-    Post: Returns bool indicating success
-    or failure.
+    /**
+     * Transfer method for transferring between two Funds.
+     * @param f An integer for Fund index.
+     * @param f1 An integer for second Fund index.
+     * @param amt An integer for transfer amount.
+     * @post Returns bool indicating success
+     * or failure.
     */
     bool transfer(int f, int f1, int amt);
-    /*
-    Transfer method for sending an amount to
-    a different Account Fund.
-    Pre: Requires an integer for Fund index,
-    and a int for the amount being transferred.
-    Post: Returns a double representing amount
-    transferred.
+    /**
+     * Transfer method for sending an amount to
+     * a different Account Fund.
+     * @param f An integer for Fund index.
+     * @param amt An integer for transfer amount.
+     * @post Returns int representing amount
+     * sent.
     */
     int transferSend(int f, int amt);
-    /*
-    Transfer method for receiving an amount from
-    a different Account Fund.
-    Pre: Requires an integer for Fund index,
-    and a int for the amount being transferred.
-    Post: Returns a bool indicating success or failure.
+    /**
+     * Transfer method for receiving an amount from
+     * a different Account Fund.
+     * @param f An integer for Fund index.
+     * @param amt An integer for transfer amount.
+     * @post Returns bool indicating success
+     * or failure.
     */
     bool transferReceive(int f, int amt);
-    /*
-    Method for retrieving first name.
-    Pre: N/A
-    Post: Returns string representing
-    Account first name.
+    /**
+     * Method for retrieving first name.
+     * @post Returns string representing
+     * Account first name.
     */
     std::string getFirstName() const;
-    /*
-    Method for retrieving last name.
-    Pre: N/A
-    Post: Returns string representing
-    Account last name.
+    /**
+     * Method for retrieving last name.
+     * @post Returns string representing
+     * Account first name.
     */
     std::string getLastName() const;
-    /*
-    Method for retrieving id.
-    Pre: N/A
-    Post: Returns string representing
-    Account id.
+    /**
+     * Method for retrieving ID.
+     * @post Returns string representing
+     * Account first name.
     */
     std::string getId() const;
-    /*
-    Method for viewing amount in a Fund.
-    Pre: Requires integer for Fund index.
-    Post: Returns double representing
-    amount in Fund.
+
+    /**
+     * Method for retrieving balance of
+     * a Fund.
+     * @param f An integer for Fund index.
+     * @post Returns int representing balance
+     * amount.
     */
     int getBalance(int f) const;
-
+    /**
+     * Method for retrieving the name
+     * of a Fund.
+     * @param f An integer for Fund index.
+     * @post Returns string representing
+     * Fund name.
+    */
     std::string getNameOfFund(int f);
-
+    /**
+     * Method for retrieving a Fund.
+     * @param f An integer for Fund index.
+     * @post Returns Fund reference.
+    */
     Fund &getFund(int f);
-
+    /**
+     * Method for viewing overall
+     * account Transaction history. 
+    */
     void viewHistory() const;
-
+    /**
+     * Method for viewing 
+     * Transaction history from 
+     * specific Fund
+     * @param f An integer for Fund index.
+    */
     void viewHistory(int f) const;
-
+    /**
+     * Method for adding a Transaction to a 
+     * Fund's history.
+     * @param f An integer for Fund index.
+     * @param toAdd A Transaction object to
+     * add to the Fund history.
+    */
     bool addHistory(int f, Transaction toAdd);
-
+    /**
+     * '<<' operator overload for displaying Account
+     * information.
+     * @param OUT An ostream object reference.
+     * @param a A constant Account object reference.
+    */
     friend ostream &operator<<(ostream &OUT, const Account &a);
 };
 
