@@ -102,11 +102,9 @@ std::string Account::getNameOfFund(int f)
 
 void Account::viewHistory() const
 {
-    cout << "Transaction History for " << this->firstName << " " << this->lastName << " by fund." << endl;
     for (int i = 0; i < 10; i++)
     {
-        cout << funds[i] << endl
-             << " ";
+        cout << funds[i] << endl;
         funds[i].displayHistory();
     }
 }
@@ -118,9 +116,6 @@ Fund &Account::getFund(int f)
 
 void Account::viewHistory(int f) const
 {
-    cout << "Transaction History for " << this->firstName << " " << this->lastName << " ";
-    cout << funds[f] << endl
-         << " ";
     funds[f].displayHistory();
 }
 

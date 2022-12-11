@@ -172,4 +172,18 @@ void Banker::processHistory(Transaction &toDo, Account *a)
 		cout << "Account " << toDo.getAccountID() << " not found. History request refused" << endl;
 		return;
 	}
+	cout << "Transaction History for " << a->getFirstName() << " " << a->getLastName() << " ";
+	if (toDo.getFundID() >= 0 && toDo.getFundID() <= 9)
+	{
+		cout << "by fund." << endl;
+		a->viewHistory();
+	}
+	else
+	{
+		cout << a->getFund(toDo.getFundID());
+		for (int i = 0; i < 10; i++)
+		{
+			a->viewHistory(i);
+		}
+	}
 }
