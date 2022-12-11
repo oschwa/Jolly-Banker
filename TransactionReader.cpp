@@ -46,33 +46,25 @@ void TransactionReader::defineTransaction(std::string line)
     readerQueue->push(t);
 }
 
-Transaction &TransactionReader::buildTransaction(std::string line, char type)
-{
-
+Transaction &TransactionReader::buildTransaction(std::string line, char type) {
     std::string accountId;
     std::string amt;
-    int f;
+    char f;
     int i;
     // Account id obtained here.
-    for (i = 2; i < line.size(); i++)
-    {
-        if (line[i] == ' ')
-        {
-            break;
-        }
+    for (i = 2; i < 6; i++) {
         accountId += line[i];
     }
     // Fund index is converted to int.
-    f = accountId[accountId.size() - 1];
+    f = line[i];
     // Deposit amount obtained here.
-    for (i += 1; i < line.size(); i++)
-    {
+    for (i += 2; i < line.size(); i++) {
         amt += line[i];
     }
 
     int converted_accId = std::stoi(accountId);
     int converted_amt = std::stoi(amt);
-    Transaction * new_T = new Transaction(type, converted_accId, f, converted_amt);
+    Transaction * new_T = new Transaction(type, converted_accId, f-48, converted_amt);
     return *new_T;
 }
 
