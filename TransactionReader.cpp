@@ -3,9 +3,8 @@
 
 #include "TransactionReader.h"
 
-TransactionReader::TransactionReader() {
+TransactionReader::TransactionReader() {}
 
-}
 TransactionReader::TransactionReader(std::queue<Transaction> * transactionQueue) {
     readerQueue = transactionQueue;
 }
@@ -62,8 +61,8 @@ Transaction& TransactionReader::buildTransaction(std::string line, char type) {
 
     int converted_accId = std::stoi(accountId);
     int converted_amt = std::stoi(amt);
-    Transaction new_T(type, converted_accId, f, converted_amt);
-    return new_T;
+    Transaction * new_T = new Transaction(type, converted_accId, f, converted_amt);
+    return *new_T;
 }
 
 Transaction& TransactionReader::defineAccountOpen(std::string line, char type) {
@@ -94,17 +93,73 @@ Transaction& TransactionReader::defineAccountOpen(std::string line, char type) {
     }
 
     int converted_accId = std::stoi(accountId);
-    Transaction new_T(type, firstName, lastName, converted_accId);
-    return new_T;
+    Transaction * new_T = new Transaction(type, firstName, lastName, converted_accId);
+    return *new_T;
 }
-
-Transaction& defineFundTransfer(std::string line, char type) {
-    Transaction t;
+/*
+REVISION CHECKLIST:
+- Exception Handling.
+- Algorithm Efficiency Changes.
+*/
+Transaction& TransactionReader::defineFundTransfer(std::string line, char type) {
+    Transaction * new_T;
+    std::string accountId_1 = "";
+    std::string accountId_2 ="";
+    int fund_index_1;
+    int fund_index_2;
+    std::string amt;
     /*
-    Read line and determine Account, funds, and amt.
-    
+    Transfers follow this format: 
+    [Transaction Type] [Account Number (Fund index as last integer)] [Amount] [Account Number (Fund index as last integer)]
     */
-    return t;
+
+    //integer used for iterating through input line.
+    int i;
+
+    //First Account number identified.
+    for (i = 2; i < 6; i++) {
+        accountId_1 += line[i];
+    }
+
+    std::cout << accountId_1 << std::endl;
+
+    //First fund index obtained.
+    fund_index_1 = line[i];
+
+    std::cout << fund_index_1 << std::endl;
+
+    //Amount to be transferred identified. 
+    for (i += 2; i < line.size(); i++) {
+        if (line[i]==' ') {
+            break;
+        }
+        amt += line[i];
+    }
+
+    cout << amt << endl;
+
+    //Second Account number identified.
+    for (i += 1; i < line.size(); i++) {
+        if (i == line.size() - 1) {
+            break;
+        }
+        accountId_2 += line[i];
+    }
+
+    std::cout << accountId_2 << std::endl;
+
+    //Second Fund index obtained.
+    fund_index_2 = line[i];
+
+    std::cout << fund_index_2 << std::endl;
+
+    //Transaction established.
+    new_T = new Transaction(type, std::stoi(accountId_1), fund_index_1 - 48, 
+        std::stoi(amt), std::stoi(accountId_2), fund_index_2 - 48);
+
+    cout << new_T->getFundID() << " " << new_T->getTransferToFundID() << endl;
+    
+    return *new_T;
 }
 
 #endif //TRANSACTION_READER_CPP
