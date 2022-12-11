@@ -1,6 +1,8 @@
 #ifndef AccountTree_H
 #define AccountTree_H
 
+#pragma once
+
 #include "Account.h"
 
 //Add comments for methods DETAILED
