@@ -4,6 +4,7 @@
 #include <queue>
 #include <iostream>
 #include <fstream>
+#include <cerrno>
 
 class TransactionReader {
 private: 
@@ -33,7 +34,7 @@ public:
     */
     void defineTransaction(std::string line);
 
-    Transaction& buildTransaction(std::string line, char type);
+    Transaction& defineDepositWithdrawal(std::string line, char type);
 
     Transaction& defineAccountOpen(std::string line, char type);
 
