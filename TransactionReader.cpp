@@ -1,3 +1,13 @@
+/*
+Author(s): Oliver Schwab & Parth Gupta
+Class: CSS 342 C Aut 22
+Description: TransactionReader reads the
+input from the file and make Transaction 
+objects out of each line. Then, it
+stores these objects in the Banker class
+queue using a queue pointer.
+*/
+
 #ifndef TRANSACTION_READER_CPP
 #define TRANSACTION_READER_CPP
 
@@ -12,24 +22,40 @@ TransactionReader::TransactionReader(std::queue<Transaction> * transactionQueue)
 
 bool TransactionReader::read(std::string fileName)
 {
+
     std::ifstream inFile;
+    /*
+    ifstream is opened using input file,
+    and each line is parsed to make 
+    a Transaction object.
+    */
     inFile.open(fileName);
+
+    if (inFile.fail()) {
+        std::cerr << "File incompatible." << std::endl;
+        return false;
+    }
+
     std::string line;
     while (std::getline(inFile, line))
     {
         defineTransaction(line);
     }
-    inFile.close();
     return true;
 }
 
 void TransactionReader::defineTransaction(std::string line)
-{
+{   
+    /*
+    Different Transaction types are
+    considered given the char indicator
+    recieved. 
+    */
     Transaction t;
     char type = line[0];
     if (type == 'D' || type == 'W')
     {
-        buildTransaction(line, type);
+        defineDepositWithdrawal(line, type);
     }
     else if (type == 'T')
     {
@@ -37,44 +63,61 @@ void TransactionReader::defineTransaction(std::string line)
     }
     else if (type == 'H')
     {
-        // History
+
     }
     else if (type == 'O')
     {
         t = defineAccountOpen(line, type);
     }
+    
     readerQueue->push(t);
 }
 
-Transaction &TransactionReader::buildTransaction(std::string line, char type) {
+Transaction &TransactionReader::defineDepositWithdrawal(std::string line, char type) {
+    
     std::string accountId;
     std::string amt;
     char f;
+
     int i;
-    // Account id obtained here.
-    for (i = 2; i < 6; i++) {
+    /*
+    Account ID is parsed.
+    */
+    for (i = 2; i < 6; i++) 
+    {
         accountId += line[i];
     }
-    // Fund index is converted to int.
+    /*
+    Fund index is obtained.
+    */
     f = line[i];
-    // Deposit amount obtained here.
-    for (i += 2; i < line.size(); i++) {
+    /*
+    Deposit / Withdrawal amount is parsed.
+    */
+    for (i += 2; i < line.size(); i++) 
+    {
         amt += line[i];
     }
-
-    int converted_accId = std::stoi(accountId);
-    int converted_amt = std::stoi(amt);
-    Transaction * new_T = new Transaction(type, converted_accId, f-48, converted_amt);
+    /*
+    Transaction object is made to be pushed to queue.
+    stoi() is used to convert strings to int, and the 
+    expression 'f- '0'' is used to properly format 
+    the Fund index to base 10. 
+    */
+    Transaction * new_T = new Transaction(type, std::stoi(accountId), f - '0', std::stoi(amt));
     return *new_T;
 }
 
 Transaction &TransactionReader::defineAccountOpen(std::string line, char type)
 {
-    std::string firstName = "";
-    std::string lastName = "";
-    std::string accountId = "";
+    std::string firstName;
+    std::string lastName;
+    std::string accountId;
 
     int i;
+    /*
+    First name of new Account is parsed.
+    */
     for (i = 2; i < line.size(); i++)
     {
         if (line[i] == ' ')
@@ -83,7 +126,9 @@ Transaction &TransactionReader::defineAccountOpen(std::string line, char type)
         }
         firstName += line[i];
     }
-
+    /*
+    Last name of Account is parsed.
+    */
     for (i += 1; i < line.size(); i++)
     {
         if (line[i] == ' ')
@@ -92,7 +137,9 @@ Transaction &TransactionReader::defineAccountOpen(std::string line, char type)
         }
         lastName += line[i];
     }
-
+    /*
+    Account ID is parsed.
+    */
     for (i += 1; i < line.size(); i++)
     {
         if (line[i] == ' ')
@@ -101,16 +148,14 @@ Transaction &TransactionReader::defineAccountOpen(std::string line, char type)
         }
         accountId += line[i];
     }
-
-    int converted_accId = std::stoi(accountId);
-    Transaction * new_T = new Transaction(type, firstName, lastName, converted_accId);
+    /*
+    Transaction object is made to be pushed to queue.
+    stoi() is used to convert string to int.
+    */
+    Transaction * new_T = new Transaction(type, firstName, lastName, std::stoi(accountId));
     return *new_T;
 }
-/*
-REVISION CHECKLIST:
-- Exception Handling.
-- Algorithm Efficiency Changes.
-*/
+
 Transaction& TransactionReader::defineFundTransfer(std::string line, char type) {
     Transaction * new_T;
     std::string accountId_1 = "";
@@ -120,54 +165,55 @@ Transaction& TransactionReader::defineFundTransfer(std::string line, char type) 
     std::string amt;
     /*
     Transfers follow this format: 
-    [Transaction Type] [Account Number (Fund index as last integer)] [Amount] [Account Number (Fund index as last integer)]
+        [Transaction Type] [Account Number (Fund index as last integer)] [Amount] 
+        [Account Number (Fund index as last integer)]
     */
-
-    //integer used for iterating through input line.
     int i;
-
-    //First Account number identified.
-    for (i = 2; i < 6; i++) {
+    /*
+    First Account ID parsed.
+    */
+    for (i = 2; i < 6; i++) 
+    {
         accountId_1 += line[i];
     }
-
-    std::cout << accountId_1 << std::endl;
-
-    //First fund index obtained.
+    /*
+    First Fund index is located.
+    */
     fund_index_1 = line[i];
-
-    std::cout << fund_index_1 << std::endl;
-
-    //Amount to be transferred identified. 
-    for (i += 2; i < line.size(); i++) {
-        if (line[i]==' ') {
+    /*
+    Transfer amount is parsed.
+    */
+    for (i += 2; i < line.size(); i++) 
+    {
+        if (line[i]==' ') 
+        {
             break;
         }
         amt += line[i];
     }
-
-    cout << amt << endl;
-
-    //Second Account number identified.
-    for (i += 1; i < line.size(); i++) {
-        if (i == line.size() - 1) {
+    /*
+    Second Account ID is parsed.
+    */
+    for (i += 1; i < line.size(); i++) 
+    {
+        if (i == line.size() - 1) 
+        {
             break;
         }
         accountId_2 += line[i];
     }
-
-    std::cout << accountId_2 << std::endl;
-
-    //Second Fund index obtained.
+    /*
+    Second Fund index is located.
+    */
     fund_index_2 = line[i];
-
-    std::cout << fund_index_2 << std::endl;
-
-    //Transaction established.
-    new_T = new Transaction(type, std::stoi(accountId_1), fund_index_1 - 48, 
-        std::stoi(amt), std::stoi(accountId_2), fund_index_2 - 48);
-
-    cout << new_T->getFundID() << " " << new_T->getTransferToFundID() << endl;
+    /*
+    Transaction object is made to be pushed to queue.
+    stoi() is used to convert strings to int, and the 
+    expression 'f- '0'' is used to properly format 
+    the Fund index to base 10. 
+    */
+    new_T = new Transaction(type, std::stoi(accountId_1), fund_index_1 - '0', 
+        std::stoi(amt), std::stoi(accountId_2), fund_index_2 - '0');
     
     return *new_T;
 }
@@ -175,20 +221,29 @@ Transaction& TransactionReader::defineFundTransfer(std::string line, char type) 
 Transaction& TransactionReader::defineHistoryQuery(std::string line, char type) {
     Transaction * new_T;
     std::string account;
-
-    //Store account Id for lookup.
+    /*
+    Account ID is parsed.
+    */
     for (int i = 2; i < line.size(); i++) {
         account += line[i];
     }
 
-    //Determine if a Fund index is included.
+    /*
+    If the ID has 5 characters, then extract the
+    Fund index from the end of the query. 
+    Otherwise, make a Transaction with the
+    four character Account ID.
+    */
     if (account.size() == 5) {
         int f_index = account[account.size()-1];
         account.erase(account.size()-1);
         new_T = new Transaction(type, std::stoi(account), f_index-48);
         return *new_T;
     }
-    
+    /*
+    Transaction object is made to be pushed to queue.
+    stoi() is used to convert string to int.
+    */
     new_T = new Transaction(type, std::stoi(account));
     return *new_T;
 }
