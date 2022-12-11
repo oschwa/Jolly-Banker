@@ -15,7 +15,7 @@ class Banker
 {
 private:
 	AccountTree accounts;
-	queue<Transaction> *transactionQueue;
+	queue<Transaction> *transactionQueue = new queue<Transaction>;
 	TransactionReader reader;
 
 public:
