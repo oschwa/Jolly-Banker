@@ -246,6 +246,7 @@ Transaction& TransactionReader::defineHistoryQuery(std::string line, char type) 
     */
     new_T = new Transaction(type, std::stoi(account));
     return *new_T;
+    
 }
 
 #endif // TRANSACTION_READER_CPP
