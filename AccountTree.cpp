@@ -30,7 +30,7 @@ bool AccountTree::Insert(Account *insert)
 	else
 	{
 		Node *current = root;
-		RecursiveInsert(current, insert);
+		return RecursiveInsert(current, insert);
 	}
 	return false;
 }
