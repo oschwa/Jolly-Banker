@@ -7,16 +7,19 @@ int main()
 	return 0;
 }
 
-Banker::Banker() {
-	//TBD
+Banker::Banker()
+{
+	// TBD
 }
 
-Banker::Banker(ifstream inFile) {
-	//TBD
+Banker::Banker(ifstream inFile)
+{
+	// TBD
 }
 
-Banker::~Banker() {
-	//TBD
+Banker::~Banker()
+{
+	// TBD
 }
 
 bool Banker::read(std::string fileName)
@@ -34,7 +37,7 @@ bool Banker::execute()
 
 		switch (toDo.getTransactionType())
 		{
-		Account *toFind;
+			Account *toFind;
 		case 'O':
 			if (this->openAccount(toDo.getFirstName(), toDo.getLastName(), to_string(toDo.getAccountID())))
 				break;
@@ -55,6 +58,7 @@ bool Banker::execute()
 			{
 				toDo.setFailed(true);
 			}
+			toFind->addHistory(toDo.getFundID(), &toDo);
 			break;
 		case 'W':
 			if (!this->accounts.Retrieve(toDo.getAccountID(), toFind))
@@ -67,6 +71,7 @@ bool Banker::execute()
 			{
 				toDo.setFailed(true);
 			}
+			toFind->addHistory(toDo.getFundID(), &toDo);
 			break;
 		case 'T':
 			Account *toFind2;
@@ -86,6 +91,7 @@ bool Banker::execute()
 			{
 				toDo.setFailed(true);
 			}
+			toFind->addHistory(toDo.getFundID(), &toDo);
 			break;
 		case 'H':
 			if (!this->accounts.Retrieve(toDo.getAccountID(), toFind))
