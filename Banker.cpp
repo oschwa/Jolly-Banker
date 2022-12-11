@@ -12,7 +12,7 @@ Banker::Banker()
 	// TBD
 }
 
-Banker::Banker(ifstream inFile)
+Banker::Banker(std::string fileName)
 {
 	// TBD
 }

@@ -21,7 +21,7 @@ private:
 public:
 	// constructors
 	Banker();
-	Banker(ifstream inputFile);
+	Banker(string fileName);
 	~Banker();
 
 	// utility methods
