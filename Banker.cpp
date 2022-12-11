@@ -4,16 +4,21 @@
 
 int main()
 {
+	Banker b1;
+	b1.read("testInput.txt");
+	b1.execute();
 	return 0;
 }
 
 Banker::Banker()
 {
+	this->transactionQueue = new queue<Transaction>;
 	// TBD
 }
 
 Banker::Banker(std::string fileName)
 {
+	this->transactionQueue = new queue<Transaction>;
 	// TBD
 }
 
@@ -26,6 +31,8 @@ bool Banker::read(std::string fileName)
 {
 	reader = TransactionReader(this->transactionQueue);
 	return (reader.read(fileName));
+	cout << this->transactionQueue->size();
+	return true;
 }
 
 bool Banker::execute()
@@ -51,19 +58,22 @@ bool Banker::execute()
 			break;
 		case 'H':
 			this->processHistory(toDo, a);
-			// TODO: MAKE SURE TO TAKE CARE OF BOTH CASES. SPECIFIC FUND OR EVERY FUND
 			break;
 		}
-
 		transactionQueue->pop();
 	}
+	cout << "Processing Done. Final Balances" << endl;
+	this->accounts.Display();
 	return true;
 }
 
 bool Banker::openAccount(std::string firstName, std::string lastName, std::string ID)
 {
 	Account *newAccount = new Account(firstName, lastName, ID);
-	return (this->accounts.Insert(newAccount));
+	if (this->accounts.Insert(newAccount))
+		return true;
+	delete newAccount;
+	return false;
 }
 
 void Banker::viewHistory(const Account &a)
@@ -95,70 +105,83 @@ bool Banker::withdraw(Account &a, int fund, int amount)
 	return a.withdraw(fund, amount);
 }
 
-void Banker::processOpen(Transaction &toDo)
+void Banker::processOpen(Transaction toDo)
 {
-	if (!this->openAccount(toDo.getFirstName(), toDo.getLastName(), to_string(toDo.getAccountID())))
+	if (this->openAccount(toDo.getFirstName(), toDo.getLastName(), to_string(toDo.getAccountID())) == false)
 	{
-		cout << "Account " << toDo.getAccountID() << " is already open. Transaction Failed";
+		cout << "Account " << toDo.getAccountID() << " is already open. Transaction Failed" << endl;
 		toDo.setFailed(true);
 	}
 }
 
-void Banker::processDeposit(Transaction &toDo, Account *a)
+void Banker::processDeposit(Transaction toDo, Account *a)
 {
 	if (!this->accounts.Retrieve(toDo.getAccountID(), a))
 	{
-		cout << "Account " << toDo.getAccountID() << " not found. Deposit refused";
+		cout << "Account " << toDo.getAccountID() << " not found. Deposit refused" << endl;
 		toDo.setFailed(true);
 	}
 	else if (!a->deposit(toDo.getFundID(), toDo.getAmount()))
 	{
+		cout << "ERROR: Invalid deposit of " << toDo.getAmount() << " to " << a->getFirstName() << " " << a->getLastName() << " " << a->getNameOfFund(toDo.getFundID()) << endl;
 		toDo.setFailed(true);
 	}
-	a->addHistory(toDo.getFundID(), &toDo);
+	a->addHistory(toDo.getFundID(), toDo);
 }
 
-void Banker::processWithdrawl(Transaction &toDo, Account *a)
+void Banker::processWithdrawl(Transaction toDo, Account *a)
 {
 	if (!this->accounts.Retrieve(toDo.getAccountID(), a))
 	{
-		cout << "Account " << toDo.getAccountID() << " not found. Withdrawal refused";
+		cout << "Account " << toDo.getAccountID() << " not found. Withdrawal refused" << endl;
 		toDo.setFailed(true);
 	}
 	else if (!a->withdraw(toDo.getFundID(), toDo.getAmount()))
 	{
+		cout << "ERROR: Not Enough funds to withdraw " << toDo.getAmount() << " from " << a->getFirstName() << " " << a->getLastName() << " " << a->getNameOfFund(toDo.getFundID()) << endl;
 		toDo.setFailed(true);
 	}
-	a->addHistory(toDo.getFundID(), &toDo);
+	a->addHistory(toDo.getFundID(), toDo);
 }
 
-void Banker::processTransfer(Transaction &toDo, Account *a)
+void Banker::processTransfer(Transaction toDo, Account *a)
 {
 	Account *a2;
 	if (!this->accounts.Retrieve(toDo.getAccountID(), a))
 	{
-		cout << "Account " << toDo.getAccountID() << " not found. Tranferal refused";
+		cout << "Account " << toDo.getAccountID() << " not found. Tranferal refused" << endl;
 		toDo.setFailed(true);
 	}
 	else if (!this->accounts.Retrieve(toDo.getTransferToAccountID(), a2))
 	{
-		cout << "Account " << toDo.getTransferToAccountID() << " not found. Tranferal refused";
+		cout << "Account " << toDo.getTransferToAccountID() << " not found. Tranferal refused" << endl;
 		toDo.setFailed(true);
 	}
 	else if (!this->transferFunds(*a, toDo.getFundID(), *a2, toDo.getTransferToFundID(), toDo.getAmount()))
 	{
+		cout << "ERROR: Invalid transfer of amount " << toDo.getAmount() << " from " << a->getFirstName() << " " << a->getLastName()
+				 << " " << a->getNameOfFund(toDo.getFundID()) << " to " << a2->getFirstName() << " " << a2->getLastName() << " " << a2->getNameOfFund(toDo.getTransferToFundID()) << endl;
 		toDo.setFailed(true);
 	}
-	a->addHistory(toDo.getFundID(), &toDo);
+	a->addHistory(toDo.getFundID(), toDo);
 }
 
-void Banker::processHistory(Transaction &toDo, Account *a)
+void Banker::processHistory(Transaction toDo, Account *a)
 {
 	if (!this->accounts.Retrieve(toDo.getAccountID(), a))
 	{
-		cout << "Account " << toDo.getAccountID() << " not found. History request refused";
-		toDo.setFailed(true);
+		cout << "Account " << toDo.getAccountID() << " not found. History request refused" << endl;
+		return;
 	}
-
-	a->addHistory(toDo.getFundID(), &toDo);
+	cout << "Transaction History for " << a->getFirstName() << " " << a->getLastName() << " ";
+	if (toDo.getFundID() < 0 || toDo.getFundID() > 9)
+	{
+		cout << "by fund." << endl;
+		a->viewHistory();
+	}
+	else
+	{
+		cout << a->getFund(toDo.getFundID()) << endl;
+		a->viewHistory(toDo.getFundID());
+	}
 }

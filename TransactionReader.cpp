@@ -15,8 +15,8 @@ queue using a queue pointer.
 
 TransactionReader::TransactionReader() {}
 
-
-TransactionReader::TransactionReader(std::queue<Transaction> * transactionQueue) {
+TransactionReader::TransactionReader(std::queue<Transaction> *transactionQueue)
+{
     readerQueue = transactionQueue;
 }
 
@@ -63,7 +63,8 @@ void TransactionReader::defineTransaction(std::string line)
     }
     else if (type == 'H')
     {
-
+        // History
+        t = defineHistoryQuery(line, type);
     }
     else if (type == 'O')
     {
@@ -74,7 +75,6 @@ void TransactionReader::defineTransaction(std::string line)
 }
 
 Transaction &TransactionReader::defineDepositWithdrawal(std::string line, char type) {
-    
     std::string accountId;
     std::string amt;
     char f;
@@ -83,7 +83,7 @@ Transaction &TransactionReader::defineDepositWithdrawal(std::string line, char t
     /*
     Account ID is parsed.
     */
-    for (i = 2; i < 6; i++) 
+    for (i = 2; i < 6; i++)
     {
         accountId += line[i];
     }
@@ -159,7 +159,7 @@ Transaction &TransactionReader::defineAccountOpen(std::string line, char type)
 Transaction& TransactionReader::defineFundTransfer(std::string line, char type) {
     Transaction * new_T;
     std::string accountId_1 = "";
-    std::string accountId_2 ="";
+    std::string accountId_2 = "";
     int fund_index_1;
     int fund_index_2;
     std::string amt;
@@ -214,12 +214,12 @@ Transaction& TransactionReader::defineFundTransfer(std::string line, char type) 
     */
     new_T = new Transaction(type, std::stoi(accountId_1), fund_index_1 - '0', 
         std::stoi(amt), std::stoi(accountId_2), fund_index_2 - '0');
-    
     return *new_T;
 }
 
-Transaction& TransactionReader::defineHistoryQuery(std::string line, char type) {
-    Transaction * new_T;
+Transaction &TransactionReader::defineHistoryQuery(std::string line, char type)
+{
+    Transaction *new_T;
     std::string account;
     /*
     Account ID is parsed.
@@ -246,7 +246,6 @@ Transaction& TransactionReader::defineHistoryQuery(std::string line, char type) 
     */
     new_T = new Transaction(type, std::stoi(account));
     return *new_T;
-    
 }
 
 #endif // TRANSACTION_READER_CPP
