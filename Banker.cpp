@@ -133,8 +133,11 @@ void Banker::processWithdrawl(Transaction &toDo, Account *a)
 	{
 		cout << "Account " << toDo.getAccountID() << " not found. Withdrawal refused" << endl;
 		toDo.setFailed(true);
+		a->addHistory(toDo.getFundID(), &toDo);
+		return;
 	}
-	else if (!a->withdraw(toDo.getFundID(), toDo.getAmount()))
+	toDo.setName(a->getFirstName(), a->getLastName());
+	if (!a->withdraw(toDo.getFundID(), toDo.getAmount()))
 	{
 		cout << "ERROR: Not Enough funds to withdraw " << toDo.getAmount() << " from " << toDo.getFirstName() << " " << toDo.getLastName() << " " << a->getNameOfFund(toDo.getFundID()) << endl;
 		toDo.setFailed(true);

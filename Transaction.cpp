@@ -138,6 +138,12 @@ void Transaction::setLastName(std::string lastName)
     this->lastName = lastName;
 }
 
+void Transaction::setName(std::string firstName, std::string lastName)
+{
+    this->firstName = firstName;
+    this->lastName = lastName;
+}
+
 ////overload operator
 ////If 'fail' is empty then transaction is successful and successfull message is shown,
 ////if 'fail' is not empty then transaction has failed and failedTransaction message is shown
