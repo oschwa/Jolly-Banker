@@ -119,7 +119,7 @@ void Account::viewHistory(int f) const
     funds[f].displayHistory();
 }
 
-bool Account::addHistory(int f, Transaction *toAdd)
+bool Account::addHistory(int f, Transaction toAdd)
 {
     return (this->funds[f].addTransaction(toAdd));
 }

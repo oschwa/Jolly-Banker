@@ -20,7 +20,7 @@ private:
 	char fundID;
 
 	// vector for transaction history
-	vector<Transaction *> history;
+	vector<Transaction> history;
 
 public:
 	// constructor / destructor
@@ -60,7 +60,7 @@ public:
 	 * @pre Fund is not NULL
 	 * @post Transaction history is returned (vector<Transaction>)
 	 */
-	vector<Transaction *> getHistory();
+	vector<Transaction> getHistory();
 
 	// utility methods
 
@@ -88,7 +88,7 @@ public:
 	 * @param trans Transaction to be added to fund history
 	 * @post true if transaction successfully added to history
 	 */
-	bool addTransaction(Transaction *trans);
+	bool addTransaction(Transaction trans);
 
 	/**
 	 * displayHistory Prints out transaction history of fund to the console

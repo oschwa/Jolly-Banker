@@ -104,7 +104,7 @@ public:
 
     void viewHistory(int f) const;
 
-    bool addHistory(int f, Transaction *toAdd);
+    bool addHistory(int f, Transaction toAdd);
 
     friend ostream &operator<<(ostream &OUT, const Account &a);
 };

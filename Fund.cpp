@@ -29,7 +29,7 @@ std::string Fund::getName() const
     return this->name;
 }
 
-vector<Transaction *> Fund::getHistory()
+vector<Transaction> Fund::getHistory()
 {
     return this->history;
 }
@@ -53,7 +53,7 @@ bool Fund::withdraw(int amountToWithdraw)
     return true;
 }
 
-bool Fund::addTransaction(Transaction *trans)
+bool Fund::addTransaction(Transaction trans)
 {
     this->history.push_back(trans);
     return true;
@@ -61,22 +61,21 @@ bool Fund::addTransaction(Transaction *trans)
 
 void Fund::displayHistory() const
 {
-    cout << *this << endl;
     for (int i = 0; i < this->history.size(); i++)
     {
         // transaction type
-        char type = this->history[i]->getTransactionType();
+        char type = this->history[i].getTransactionType();
 
         // first account id and fund id
-        int account1ID = this->history[i]->getAccountID();
-        int account1Fund = this->history[i]->getFundID();
+        int account1ID = this->history[i].getAccountID();
+        int account1Fund = this->history[i].getFundID();
 
         // amount of transaction
-        int amount = this->history[i]->getAmount();
+        int amount = this->history[i].getAmount();
 
         // second account id and fund id
-        int account2ID = this->history[i]->getTransferToAccountID();
-        int account2Fund = this->history[i]->getTransferToFundID();
+        int account2ID = this->history[i].getTransferToAccountID();
+        int account2Fund = this->history[i].getTransferToFundID();
 
         // print minimum details of transaction
         cout << " " << type << " " << account1ID << account1Fund << " " << amount;
@@ -88,7 +87,7 @@ void Fund::displayHistory() const
         }
 
         // if transaction failed, print failed
-        if (this->history[i]->failedTransaction())
+        if (this->history[i].failedTransaction())
             cout << " (failed)";
         cout << endl;
     }

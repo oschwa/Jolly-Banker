@@ -102,27 +102,27 @@ public:
 	/**
 	 * processOpen
 	 */
-	void processOpen(Transaction &toDo);
+	void processOpen(Transaction toDo);
 
 	/**
 	 * processDeposit
 	 */
-	void processDeposit(Transaction &toDo, Account *a);
+	void processDeposit(Transaction toDo, Account *a);
 
 	/**
 	 * processWithdraw
 	 */
-	void processWithdrawl(Transaction &toDo, Account *a);
+	void processWithdrawl(Transaction toDo, Account *a);
 
 	/**
 	 * processTransfer
 	 */
-	void processTransfer(Transaction &toDo, Account *a);
+	void processTransfer(Transaction toDo, Account *a);
 
 	/**
 	 * processHistory
 	 */
-	void processHistory(Transaction &toDo, Account *a);
+	void processHistory(Transaction toDo, Account *a);
 
 	/**
 	 * main Main function for running the program

@@ -137,12 +137,8 @@ Transaction &TransactionReader::defineFundTransfer(std::string line, char type)
         accountId_1 += line[i];
     }
 
-    std::cout << accountId_1 << std::endl;
-
     // First fund index obtained.
     fund_index_1 = line[i];
-
-    std::cout << fund_index_1 << std::endl;
 
     // Amount to be transferred identified.
     for (i += 2; i < line.size(); i++)
@@ -154,8 +150,6 @@ Transaction &TransactionReader::defineFundTransfer(std::string line, char type)
         amt += line[i];
     }
 
-    cout << amt << endl;
-
     // Second Account number identified.
     for (i += 1; i < line.size(); i++)
     {
@@ -166,18 +160,12 @@ Transaction &TransactionReader::defineFundTransfer(std::string line, char type)
         accountId_2 += line[i];
     }
 
-    std::cout << accountId_2 << std::endl;
-
     // Second Fund index obtained.
     fund_index_2 = line[i];
-
-    std::cout << fund_index_2 << std::endl;
 
     // Transaction established.
     new_T = new Transaction(type, std::stoi(accountId_1), fund_index_1 - 48,
                             std::stoi(amt), std::stoi(accountId_2), fund_index_2 - 48);
-
-    cout << new_T->getFundID() << " " << new_T->getTransferToFundID() << endl;
 
     return *new_T;
 }
@@ -202,7 +190,7 @@ Transaction &TransactionReader::defineHistoryQuery(std::string line, char type)
         return *new_T;
     }
 
-    new_T = new Transaction(type, std::stoi(account));
+    new_T = new Transaction(type, std::stoi(account), -1);
     return *new_T;
 }
 
