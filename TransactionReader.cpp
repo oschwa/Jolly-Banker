@@ -5,6 +5,7 @@
 
 TransactionReader::TransactionReader() {}
 
+
 TransactionReader::TransactionReader(std::queue<Transaction> * transactionQueue) {
     readerQueue = transactionQueue;
 }
