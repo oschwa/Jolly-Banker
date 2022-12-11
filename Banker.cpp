@@ -4,16 +4,21 @@
 
 int main()
 {
+	Banker b1;
+	b1.read("testInput.txt");
+	b1.execute();
 	return 0;
 }
 
 Banker::Banker()
 {
+	this->transactionQueue = new queue<Transaction>;
 	// TBD
 }
 
 Banker::Banker(std::string fileName)
 {
+	this->transactionQueue = new queue<Transaction>;
 	// TBD
 }
 
@@ -26,6 +31,8 @@ bool Banker::read(std::string fileName)
 {
 	reader = TransactionReader(this->transactionQueue);
 	return (reader.read(fileName));
+	cout << this->transactionQueue->size();
+	return true;
 }
 
 bool Banker::execute()
@@ -63,7 +70,10 @@ bool Banker::execute()
 bool Banker::openAccount(std::string firstName, std::string lastName, std::string ID)
 {
 	Account *newAccount = new Account(firstName, lastName, ID);
-	return (this->accounts.Insert(newAccount));
+	if (this->accounts.Insert(newAccount))
+		return true;
+	delete newAccount;
+	return false;
 }
 
 void Banker::viewHistory(const Account &a)
@@ -97,9 +107,9 @@ bool Banker::withdraw(Account &a, int fund, int amount)
 
 void Banker::processOpen(Transaction &toDo)
 {
-	if (!this->openAccount(toDo.getFirstName(), toDo.getLastName(), to_string(toDo.getAccountID())))
+	if (this->openAccount(toDo.getFirstName(), toDo.getLastName(), to_string(toDo.getAccountID())) == false)
 	{
-		cout << "Account " << toDo.getAccountID() << " is already open. Transaction Failed";
+		cout << "Account " << toDo.getAccountID() << " is already open. Transaction Failed" << endl;
 		toDo.setFailed(true);
 	}
 }
@@ -108,7 +118,7 @@ void Banker::processDeposit(Transaction &toDo, Account *a)
 {
 	if (!this->accounts.Retrieve(toDo.getAccountID(), a))
 	{
-		cout << "Account " << toDo.getAccountID() << " not found. Deposit refused";
+		cout << "Account " << toDo.getAccountID() << " not found. Deposit refused" << endl;
 		toDo.setFailed(true);
 	}
 	else if (!a->deposit(toDo.getFundID(), toDo.getAmount()))
@@ -122,7 +132,7 @@ void Banker::processWithdrawl(Transaction &toDo, Account *a)
 {
 	if (!this->accounts.Retrieve(toDo.getAccountID(), a))
 	{
-		cout << "Account " << toDo.getAccountID() << " not found. Withdrawal refused";
+		cout << "Account " << toDo.getAccountID() << " not found. Withdrawal refused" << endl;
 		toDo.setFailed(true);
 	}
 	else if (!a->withdraw(toDo.getFundID(), toDo.getAmount()))
@@ -137,12 +147,12 @@ void Banker::processTransfer(Transaction &toDo, Account *a)
 	Account *a2;
 	if (!this->accounts.Retrieve(toDo.getAccountID(), a))
 	{
-		cout << "Account " << toDo.getAccountID() << " not found. Tranferal refused";
+		cout << "Account " << toDo.getAccountID() << " not found. Tranferal refused" << endl;
 		toDo.setFailed(true);
 	}
 	else if (!this->accounts.Retrieve(toDo.getTransferToAccountID(), a2))
 	{
-		cout << "Account " << toDo.getTransferToAccountID() << " not found. Tranferal refused";
+		cout << "Account " << toDo.getTransferToAccountID() << " not found. Tranferal refused" << endl;
 		toDo.setFailed(true);
 	}
 	else if (!this->transferFunds(*a, toDo.getFundID(), *a2, toDo.getTransferToFundID(), toDo.getAmount()))
@@ -156,7 +166,7 @@ void Banker::processHistory(Transaction &toDo, Account *a)
 {
 	if (!this->accounts.Retrieve(toDo.getAccountID(), a))
 	{
-		cout << "Account " << toDo.getAccountID() << " not found. History request refused";
+		cout << "Account " << toDo.getAccountID() << " not found. History request refused" << endl;
 		toDo.setFailed(true);
 	}
 
