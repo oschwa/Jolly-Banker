@@ -16,12 +16,14 @@ Transaction::Transaction(char typeOfTransaction, string firstName, string lastNa
     this->firstName = firstName;
     this->lastName = lastName;
     this->accountID = accountNumber;
+    this->failed = false;
 }
 
 Transaction::Transaction(char typeOfTransaction, int accountNo)
 {
     this->transactionType = typeOfTransaction;
     this->accountID = accountNo;
+    this->failed = false;
 }
 
 Transaction::Transaction(char typeOfTransaction, int accountNo, int fundNo)
@@ -29,6 +31,7 @@ Transaction::Transaction(char typeOfTransaction, int accountNo, int fundNo)
     this->transactionType = typeOfTransaction;
     this->accountID = accountNo;
     this->fundID = fundNo;
+    this->failed = false;
 }
 
 Transaction::Transaction(char typeOfTransaction, int accountNo, int fundNo, int amount)
@@ -37,6 +40,7 @@ Transaction::Transaction(char typeOfTransaction, int accountNo, int fundNo, int 
     this->accountID = accountNo;
     this->fundID = fundNo;
     this->amount = amount;
+    this->failed = false;
 }
 
 // transaction that fails to process
@@ -47,6 +51,7 @@ Transaction::Transaction(char typeOfTransaction, int accountNo, int fundNo, int 
     this->fundID = fundNo;
     this->amount = amount;
     this->failed = failed;
+    this->failed = false;
 }
 
 Transaction::Transaction(char typeOfTransaction, int accountNo, int fundNo, int amount, int transferToAccount, int transferToFund)
@@ -57,6 +62,7 @@ Transaction::Transaction(char typeOfTransaction, int accountNo, int fundNo, int 
     this->fundID = fundNo;
     this->transferToFundID = transferToFund;
     this->amount = amount;
+    this->failed = false;
 }
 
 // transaction that fails to process
