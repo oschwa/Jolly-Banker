@@ -106,7 +106,7 @@ void Account::viewHistory(int f) const
 
 bool Account::addHistory(int f, Transaction *toAdd)
 {
-    this->funds[f].addTransaction(toAdd);
+    return (this->funds[f].addTransaction(toAdd));
 }
 
 ostream &operator<<(ostream &OUT, const Account &a)
