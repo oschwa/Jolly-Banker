@@ -3,6 +3,7 @@
 
 AccountTree::AccountTree()
 {
+	root = NULL;
 }
 
 AccountTree::~AccountTree()
@@ -25,6 +26,7 @@ bool AccountTree::Insert(Account *insert)
 		root->pAcct = insert;
 		root->left = NULL;
 		root->right = NULL;
+
 		return true;
 	}
 	else
