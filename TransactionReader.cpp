@@ -129,7 +129,7 @@ Transaction &TransactionReader::defineAccountOpen(std::string line, char type)
         {
             break;
         }
-        firstName += line[i];
+        lastName += line[i];
     }
     /*
     Last name of Account is parsed.
@@ -140,7 +140,7 @@ Transaction &TransactionReader::defineAccountOpen(std::string line, char type)
         {
             break;
         }
-        lastName += line[i];
+        firstName += line[i];
     }
     /*
     Account ID is parsed.
