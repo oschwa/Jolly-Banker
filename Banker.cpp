@@ -117,12 +117,12 @@ void Banker::processDeposit(Transaction toDo, Account *a)
 {
 	if (!this->accounts.Retrieve(toDo.getAccountID(), a))
 	{
-		cout << "Account " << toDo.getAccountID() << " not found. Deposit refused." << endl;
+		cerr << "ERROR: Account " << toDo.getAccountID() << " not found. Deposit refused." << endl;
 		toDo.setFailed(true);
 	}
 	else if (!a->deposit(toDo.getFundID(), toDo.getAmount()))
 	{
-		cout << "ERROR: Invalid deposit of " << toDo.getAmount() << " to " << a->getFirstName() << " " << a->getLastName() << " " << a->getNameOfFund(toDo.getFundID()) << endl;
+		cerr << "ERROR: Invalid deposit of " << toDo.getAmount() << " to " << a->getFirstName() << " " << a->getLastName() << " " << a->getNameOfFund(toDo.getFundID()) << endl;
 		toDo.setFailed(true);
 	}
 	a->addHistory(toDo.getFundID(), toDo);
