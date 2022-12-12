@@ -1,5 +1,5 @@
 
-University of Washington Bothell | Dong Si | 342 | Fall Quarter 2022 | Program 5, The Jolly Banker
+###University of Washington Bothell | Dong Si | 342 | Fall Quarter 2022 | Program 5, The Jolly Banker
 Parth Gupta | Oliver Schwab | Alex Covaci | Scott Cruickshank
 
 ## Overview
