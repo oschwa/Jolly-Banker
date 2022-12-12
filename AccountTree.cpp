@@ -63,7 +63,6 @@ bool AccountTree::Retrieve(const int &accountNumber, Account *&acc) const
 			search = true;
 		}
 	}
-	cerr << "ERROR: Account Number " << accountNumber << " Cannot Be Found" << endl;
 	return false;
 }
 
@@ -154,7 +153,6 @@ bool AccountTree::RecursiveInsert(Node *current, Account *insert)
 	}
 	else
 	{
-		cerr << "ERROR: Account " << insert->getId() << " is already open. Transaction refused." << endl;
 		return false;
 	}
 }

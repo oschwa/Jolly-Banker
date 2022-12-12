@@ -78,7 +78,7 @@ void Fund::displayHistory() const
         int account2Fund = this->history[i].getTransferToFundID();
 
         // print minimum details of transaction
-        cout << " " << type << " " << account1ID << account1Fund << " " << amount;
+        cout << "  " << type << " " << account1ID << account1Fund << " " << amount;
 
         // if type transfer, print second account id and second fund id
         if (type == 'T')
