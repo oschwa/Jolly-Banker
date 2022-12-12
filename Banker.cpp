@@ -31,8 +31,6 @@ bool Banker::read(std::string fileName)
 {
 	reader = TransactionReader(this->transactionQueue);
 	return (reader.read(fileName));
-	cout << this->transactionQueue->size();
-	return true;
 }
 
 bool Banker::execute()
