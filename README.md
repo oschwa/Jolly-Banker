@@ -32,6 +32,7 @@ H: Display the history of all transactions for a client account or for a single 
 
 
 For the program to operate as intended the transactions must be entered in the following format. <br>
+
 D 12341 100 Deposit $100 into the prime money market account of client ID 1234 <br>
 W 12340 500 Withdraw $500 from the money market of client ID 1234 <br>
 T 12340 1000 12341 Transfer $1000 from client 1234's money market to the prime money market <br>
