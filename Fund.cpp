@@ -34,11 +34,11 @@ vector<Transaction> Fund::getHistory()
     return this->history;
 }
 
-bool Fund::add(int amountToAdd)
+bool Fund::deposit(int amountToDeposit)
 {
-    if (amountToAdd < 0)
+    if (amountToDeposit < 0) // cannot deposit a negative value
         return false;
-    this->balance += amountToAdd;
+    this->balance += amountToDeposit;
     return true;
 }
 

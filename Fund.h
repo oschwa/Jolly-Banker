@@ -28,8 +28,6 @@ public:
 	Fund(char fundID, std::string fundName);
 	~Fund();
 
-	// setter / getters
-
 	/**
 	 * getBalance Returns an integer representing the overall balance in the fund
 	 *
@@ -62,16 +60,14 @@ public:
 	 */
 	vector<Transaction> getHistory();
 
-	// utility methods
-
 	/**
-	 * add Adds amountToAdd to the balance of the fund
+	 * deposit Adds amountToDeposit to the balance of the fund
 	 *
-	 * @param amountToAdd the integer amount to add to fund balance
+	 * @param amountToDeposit the integer amount to add to fund balance
 	 * @post False if amountToAdd is negative
 	 * @post True if amountToAdd is positive and succesfully added to balance
 	 */
-	bool add(int amountToAdd);
+	bool deposit(int amountToDeposit);
 
 	/**
 	 * withdraw Removes amountToWithdraw from balance
@@ -97,6 +93,12 @@ public:
 	 */
 	void displayHistory() const;
 
+	/**
+	 * getHistorySize returns the number of transactions in the fund's history
+	 *
+	 * @pre Fund is not null
+	 * @post Returns integer value of number of transaction in the fund's history
+	 */
 	int getHistorySize() const;
 
 	// operator overloads (Compared via balance)
