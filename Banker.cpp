@@ -1,3 +1,15 @@
+/*
+Author(s): Parth Gupta & Oliver Schwab
+Class: CSS 342 C Aut 22
+Description: Banker is passed an input file
+with each line being a command the banker needs
+to execute. Banker can open accounts each with
+10 individual funds, deposit to account funds,
+withdraw from account funds, transfer funds
+from one fund to another, and display the
+transaction history of different accounts/funds
+*/
+
 #include "Banker.h"
 #include "TransactionReader.h"
 #include "Account.h"

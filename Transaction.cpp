@@ -1,4 +1,13 @@
 // Transaction.cpp
+/*
+Author(s): Alex Covaci
+Class: CSS 342 C Aut 22
+Description: Transaction hold 9 data values.
+It holds first and last name, transaction type,
+account ID, fund ID, account ID of recipient,
+fund ID of recipient, amount, and a boolean
+representing if the transaction failed
+*/
 
 #include "Transaction.h"
 
@@ -99,7 +108,6 @@ void Transaction::setFailed(bool isFailed)
     this->failed = true;
 }
 
-// Checks if 'fail' is empty, if it is empty the transaction is successfull, if it is not empty the transaction has failedTransaction
 bool Transaction::isFailed() const
 {
     return this->failed;
@@ -120,18 +128,3 @@ void Transaction::setName(std::string firstName, std::string lastName)
     this->firstName = firstName;
     this->lastName = lastName;
 }
-
-////overload operator
-////If 'fail' is empty then transaction is successful and successfull message is shown,
-////if 'fail' is not empty then transaction has failed and failedTransaction message is shown
-// ostream & operator<<(ostream & out, const Transaction & trans)
-//{
-//     if (trans.fail.empty())
-//     {
-//         //show message: "successful transaction"
-//     }
-//     else
-//     {
-//         //show message: "failedTransaction transaction"
-//     }
-// }

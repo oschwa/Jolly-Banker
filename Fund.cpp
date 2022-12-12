@@ -1,3 +1,14 @@
+/*
+Author(s):Parth Gupta
+Class: CSS 342 C Aut 22
+Description: Fund hold 4 data members.
+It stores the balance in the fund, name
+of the fund, ID of the fund, and the
+transaction history of the fund. Fund has
+methods that allow of deposit/withdrawl,
+displaying history, and displaying the fund.
+*/
+
 #include "Fund.h"
 
 Fund::Fund()
