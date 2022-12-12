@@ -5,7 +5,7 @@
 int main()
 {
 	Banker b1;
-	b1.read("testInput.txt");
+	b1.read("BankTrans1.txt");
 	b1.execute();
 	return 0;
 }
@@ -161,7 +161,7 @@ void Banker::processTransfer(Transaction toDo, Account *a)
 				 << " " << a->getNameOfFund(toDo.getFundID()) << " to " << a2->getFirstName() << " " << a2->getLastName() << " " << a2->getNameOfFund(toDo.getTransferToFundID()) << endl;
 		toDo.setFailed(true);
 	}
-	a->addHistory(toDo.getFundID(), toDo);
+	a2->addHistory(toDo.getTransferToFundID(), toDo);
 }
 
 void Banker::processHistory(Transaction toDo, Account *a)

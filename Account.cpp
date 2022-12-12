@@ -104,8 +104,11 @@ void Account::viewHistory() const
 {
     for (int i = 0; i < 10; i++)
     {
-        cout << funds[i] << endl;
-        funds[i].displayHistory();
+        if (funds[i].getHistorySize() > 0)
+        {
+            cout << funds[i] << endl;
+            funds[i].displayHistory();
+        }
     }
 }
 

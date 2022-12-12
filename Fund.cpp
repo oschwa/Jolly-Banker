@@ -93,6 +93,11 @@ void Fund::displayHistory() const
     }
 }
 
+int Fund::getHistorySize() const
+{
+    return this->history.size();
+}
+
 bool Fund::operator<(const Fund &other) const
 {
     return (this->balance < other.balance);

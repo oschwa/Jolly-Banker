@@ -97,6 +97,8 @@ public:
 	 */
 	void displayHistory() const;
 
+	int getHistorySize() const;
+
 	// operator overloads (Compared via balance)
 	bool operator<(const Fund &other) const;
 	bool operator>(const Fund &other) const;
