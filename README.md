@@ -9,13 +9,13 @@ The Jolly Banker is a banking applicaition that processes transactions from an i
 
 Account ID's are 4 unique digits
 
-When requesting to make a transaction the appropriate call sign must lead the command. The call signs for each type of transaction are as follows..
-O: Open a client account with the appropriate funds 
-D: Deposit assets into a fund
-W: Withdraw assets from a fund
+When requesting to make a transaction the appropriate call sign must lead the command. The call signs for each type of transaction are as follows.. <br>
+O: Open a client account with the appropriate funds <br>
+D: Deposit assets into a fund <br>
+W: Withdraw assets from a fund <br>
 T: Transfer assets between funds (can be funds owned by a single client or 
-transfers between clients)
-H: Display the history of all transactions for a client account or for a single fund
+transfers between clients) <br> 
+H: Display the history of all transactions for a client account or for a single fund <br>
 
 
 
