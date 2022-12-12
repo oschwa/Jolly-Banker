@@ -87,7 +87,7 @@ void Fund::displayHistory() const
         }
 
         // if transaction failed, print failed
-        if (this->history[i].failedTransaction())
+        if (this->history[i].isFailed())
             cout << " (failed)";
         cout << endl;
     }

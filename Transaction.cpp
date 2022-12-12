@@ -43,17 +43,6 @@ Transaction::Transaction(char typeOfTransaction, int accountNo, int fundNo, int 
     this->failed = false;
 }
 
-// transaction that fails to process
-Transaction::Transaction(char typeOfTransaction, int accountNo, int fundNo, int amount, bool failed)
-{
-    this->transactionType = typeOfTransaction;
-    this->accountID = accountNo;
-    this->fundID = fundNo;
-    this->amount = amount;
-    this->failed = failed;
-    this->failed = false;
-}
-
 Transaction::Transaction(char typeOfTransaction, int accountNo, int fundNo, int amount, int transferToAccount, int transferToFund)
 {
     this->transactionType = typeOfTransaction;
@@ -63,18 +52,6 @@ Transaction::Transaction(char typeOfTransaction, int accountNo, int fundNo, int 
     this->transferToFundID = transferToFund;
     this->amount = amount;
     this->failed = false;
-}
-
-// transaction that fails to process
-Transaction::Transaction(char typeOfTransaction, int accountNo, int fundNo, int amount, int transferToAccount, int transferToFund, bool failed)
-{
-    this->transactionType = typeOfTransaction;
-    this->accountID = accountNo;
-    this->transferToAccountID = transferToAccount;
-    this->fundID = fundNo;
-    this->transferToFundID = transferToFund;
-    this->amount = amount;
-    this->failed = failed;
 }
 
 char Transaction::getTransactionType() const
@@ -123,7 +100,7 @@ void Transaction::setFailed(bool isFailed)
 }
 
 // Checks if 'fail' is empty, if it is empty the transaction is successfull, if it is not empty the transaction has failedTransaction
-bool Transaction::failedTransaction() const
+bool Transaction::isFailed() const
 {
     return this->failed;
 }
