@@ -14,8 +14,13 @@
 class Banker
 {
 private:
+	// BST that stores all accounts
 	AccountTree accounts;
+
+	// queue that hold pending transactions
 	queue<Transaction> *transactionQueue;
+
+	// reader that fills transaction queue
 	TransactionReader reader;
 
 public:

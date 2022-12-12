@@ -30,15 +30,19 @@ Banker::~Banker()
 
 bool Banker::read(std::string fileName)
 {
+	// create transaction reader using fileName
 	reader = TransactionReader(this->transactionQueue);
+
+	// reads fileName, and fills transaction queue
 	return (reader.read(fileName));
 }
 
 bool Banker::execute()
 {
+	// while there are transactions in queue
 	while (!transactionQueue->empty())
 	{
-		Transaction toDo = transactionQueue->front();
+		Transaction toDo = transactionQueue->front(); // transaction at front of queue
 		Account *a;
 
 		switch (toDo.getTransactionType())
@@ -59,8 +63,9 @@ bool Banker::execute()
 			this->processHistory(toDo, a);
 			break;
 		}
-		transactionQueue->pop();
+		transactionQueue->pop(); // remove transaction from front of queue
 	}
+	// display final balances of all accounts
 	cout << "Processing Done. Final Balances" << endl;
 	this->accounts.Display();
 	return true;
@@ -69,7 +74,7 @@ bool Banker::execute()
 bool Banker::openAccount(std::string firstName, std::string lastName, std::string ID)
 {
 	Account *newAccount = new Account(firstName, lastName, ID);
-	if (this->accounts.Insert(newAccount))
+	if (this->accounts.Insert(newAccount)) // if account can be inserted in accountTree
 		return true;
 	delete newAccount;
 	return false;
@@ -77,12 +82,12 @@ bool Banker::openAccount(std::string firstName, std::string lastName, std::strin
 
 void Banker::viewHistory(const Account &a)
 {
-	a.viewHistory();
+	a.viewHistory(); // view history of all funds in account a
 }
 
 void Banker::viewHistory(const Account &a, int fund)
 {
-	a.viewHistory(fund);
+	a.viewHistory(fund); // view history of specific fund in account a
 }
 
 bool Banker::transferFunds(Account &a, int fundA, Account &b, int fundB, int amount)
@@ -106,7 +111,7 @@ bool Banker::withdraw(Account &a, int fund, int amount)
 
 void Banker::processOpen(Transaction toDo)
 {
-	if (this->openAccount(toDo.getFirstName(), toDo.getLastName(), to_string(toDo.getAccountID())) == false)
+	if (this->openAccount(toDo.getFirstName(), toDo.getLastName(), to_string(toDo.getAccountID())) == false) // account is already open
 	{
 		cerr << "ERROR: Account " << toDo.getAccountID() << " is already open. Transaction Failed." << endl;
 		toDo.setFailed(true);
@@ -115,60 +120,60 @@ void Banker::processOpen(Transaction toDo)
 
 void Banker::processDeposit(Transaction toDo, Account *a)
 {
-	if (!this->accounts.Retrieve(toDo.getAccountID(), a))
+	if (!this->accounts.Retrieve(toDo.getAccountID(), a)) // account does not exist
 	{
 		cerr << "ERROR: Account " << toDo.getAccountID() << " not found. Deposit refused." << endl;
 		toDo.setFailed(true);
 	}
-	else if (!a->deposit(toDo.getFundID(), toDo.getAmount()))
+	else if (!a->deposit(toDo.getFundID(), toDo.getAmount())) // deposit is not valid
 	{
 		cerr << "ERROR: Invalid deposit of " << toDo.getAmount() << " to " << a->getFirstName() << " " << a->getLastName() << " " << a->getNameOfFund(toDo.getFundID()) << endl;
 		toDo.setFailed(true);
 	}
-	a->addHistory(toDo.getFundID(), toDo);
+	a->addHistory(toDo.getFundID(), toDo); // add transaction to history
 }
 
 void Banker::processWithdrawl(Transaction toDo, Account *a)
 {
-	if (!this->accounts.Retrieve(toDo.getAccountID(), a))
+	if (!this->accounts.Retrieve(toDo.getAccountID(), a)) // account does not exist
 	{
 		cerr << "ERROR: Account " << toDo.getAccountID() << " not found. Withdrawal refused." << endl;
 		toDo.setFailed(true);
 	}
-	else if (!a->withdraw(toDo.getFundID(), toDo.getAmount()))
+	else if (!a->withdraw(toDo.getFundID(), toDo.getAmount())) // withdrawl is invalid
 	{
 		cerr << "ERROR: Not Enough funds to withdraw " << toDo.getAmount() << " from " << a->getFirstName() << " " << a->getLastName() << " " << a->getNameOfFund(toDo.getFundID()) << endl;
 		toDo.setFailed(true);
 	}
-	a->addHistory(toDo.getFundID(), toDo);
+	a->addHistory(toDo.getFundID(), toDo); // add transaction to history
 }
 
 void Banker::processTransfer(Transaction toDo, Account *a)
 {
-	Account *a2;
-	if (!this->accounts.Retrieve(toDo.getAccountID(), a))
+	Account *a2;																					// account to transfer funds to
+	if (!this->accounts.Retrieve(toDo.getAccountID(), a)) // account 1 does not exist
 	{
 		cerr << "ERROR: Account " << toDo.getAccountID() << " not found. Transferal refused." << endl;
 		toDo.setFailed(true);
 	}
-	else if (!this->accounts.Retrieve(toDo.getTransferToAccountID(), a2))
+	else if (!this->accounts.Retrieve(toDo.getTransferToAccountID(), a2)) // account 2 is not found
 	{
 		cerr << "ERROR: Account " << toDo.getTransferToAccountID() << " not found. Transferal refused." << endl;
 		toDo.setFailed(true);
 		return;
 	}
-	else if (!this->transferFunds(*a, toDo.getFundID(), *a2, toDo.getTransferToFundID(), toDo.getAmount()))
+	else if (!this->transferFunds(*a, toDo.getFundID(), *a2, toDo.getTransferToFundID(), toDo.getAmount())) // transfer is invalid
 	{
 		cerr << "ERROR: Invalid transfer of amount " << toDo.getAmount() << " from " << a->getFirstName() << " " << a->getLastName()
 				 << " " << a->getNameOfFund(toDo.getFundID()) << " to " << a2->getFirstName() << " " << a2->getLastName() << " " << a2->getNameOfFund(toDo.getTransferToFundID()) << endl;
 		toDo.setFailed(true);
 	}
-	a2->addHistory(toDo.getTransferToFundID(), toDo);
+	a2->addHistory(toDo.getTransferToFundID(), toDo); // add transaction to history of account 2
 }
 
 void Banker::processHistory(Transaction toDo, Account *a)
 {
-	if (!this->accounts.Retrieve(toDo.getAccountID(), a))
+	if (!this->accounts.Retrieve(toDo.getAccountID(), a)) // account does not exist
 	{
 		cerr << "ERROR: Account " << toDo.getAccountID() << " not found. History request refused." << endl;
 		return;
