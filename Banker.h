@@ -132,7 +132,7 @@ public:
 	/**
 	 * main Main function for running the program
 	 */
-	int main();
+	int main(int argc, char **argv);
 };
 
 #endif

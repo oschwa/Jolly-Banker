@@ -14,11 +14,15 @@ transaction history of different accounts/funds
 #include "TransactionReader.h"
 #include "Account.h"
 
-int main()
+int main(int argc, char **argv)
 {
 	Banker b1;
-	// b1.read("testInput.txt");
-	b1.read("BankTrans1.txt");
+	if (argc != 2)
+	{
+		cerr << "ERROR: Invalid amount of arguments." << endl;
+		return 1;
+	}
+	b1.read(argv[1]);
 	b1.execute();
 	return 0;
 }
