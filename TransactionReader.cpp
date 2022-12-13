@@ -40,7 +40,6 @@ bool TransactionReader::read(std::string fileName)
     std::string line;
     while (std::getline(inFile, line))
     {
-        std::cout << line << std::endl;
         defineTransaction(line);
     }
     inFile.close();
