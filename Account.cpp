@@ -29,7 +29,7 @@ bool Account::deposit(int f, int amt)
     {
         return false;
     }
-    return (funds[f].add(amt));
+    return (funds[f].deposit(amt));
 }
 
 bool Account::withdraw(int f, int amt)
@@ -39,30 +39,35 @@ bool Account::withdraw(int f, int amt)
         return false;
     }
 
-    if (funds[f].getBalance() < amt) {
-        //If Money Market, compensate with Prime Money Market.
-        if (f == 0 && funds[1].getBalance() > (amt - funds[0].getBalance())) {
+    if (funds[f].getBalance() < amt)
+    {
+        // If Money Market, compensate with Prime Money Market.
+        if (f == 0 && funds[1].getBalance() > (amt - funds[0].getBalance()))
+        {
             int fundTransfer = amt - funds[0].getBalance();
             funds[1].withdraw(fundTransfer);
-            funds[0].add(fundTransfer);
+            funds[0].deposit(fundTransfer);
         }
-        //if Prime Money Market, compensate with Money Market.
-        else if (f == 1 && funds[0].getBalance() > (amt - funds[1].getBalance())) {
+        // if Prime Money Market, compensate with Money Market.
+        else if (f == 1 && funds[0].getBalance() > (amt - funds[1].getBalance()))
+        {
             int fundTransfer = amt - funds[1].getBalance();
             funds[0].withdraw(fundTransfer);
-            funds[1].add(fundTransfer);
+            funds[1].deposit(fundTransfer);
         }
-        //If Long-Term Bond, compensate with Short-Term Bond.
-        else if (f == 2 && funds[3].getBalance() > (amt - funds[2].getBalance())) {
+        // If Long-Term Bond, compensate with Short-Term Bond.
+        else if (f == 2 && funds[3].getBalance() > (amt - funds[2].getBalance()))
+        {
             int fundTransfer = amt - funds[2].getBalance();
             funds[3].withdraw(fundTransfer);
-            funds[2].add(fundTransfer);
+            funds[2].deposit(fundTransfer);
         }
-        //If Short-Term Bond, compensate with Long-Term Bond.
-        else if (f == 3 && funds[2].getBalance() > (amt - funds[3].getBalance())) {
+        // If Short-Term Bond, compensate with Long-Term Bond.
+        else if (f == 3 && funds[2].getBalance() > (amt - funds[3].getBalance()))
+        {
             int fundTransfer = amt - funds[3].getBalance();
             funds[2].withdraw(fundTransfer);
-            funds[3].add(fundTransfer);
+            funds[3].deposit(fundTransfer);
         }
     }
     return (funds[f].withdraw(amt));
@@ -159,7 +164,7 @@ ostream &operator<<(ostream &OUT, const Account &a)
     OUT << a.firstName << " " << a.lastName << " Account ID: " << a.id << endl;
     for (int i = 0; i < 10; i++)
     {
-        OUT << " " << a.funds[i] << endl;
+        OUT << "    " << a.funds[i] << endl;
     }
     return OUT;
 }

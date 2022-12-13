@@ -14,12 +14,14 @@ private:
     */
     std::queue<Transaction> * readerQueue;
 public:
+    /**
+     * Default Constructor.
+    */
     TransactionReader();
     /**
-     * Constructor for TransactionReader object.
-     * @param queue<Transaction> address of queue<Transaction>
-     * in Banker class.
-    */
+     * Parameterized Constructor
+     * @param queue<Transaction> Address of Banker class queue.
+    */    
     TransactionReader(queue<Transaction> * transactionQueue);
     /**
      * Method for reading file input.

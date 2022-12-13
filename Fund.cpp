@@ -1,3 +1,14 @@
+/*
+Author(s):Parth Gupta
+Class: CSS 342 C Aut 22
+Description: Fund hold 4 data members.
+It stores the balance in the fund, name
+of the fund, ID of the fund, and the
+transaction history of the fund. Fund has
+methods that allow of deposit/withdrawl,
+displaying history, and displaying the fund.
+*/
+
 #include "Fund.h"
 
 Fund::Fund()
@@ -34,11 +45,11 @@ vector<Transaction> Fund::getHistory()
     return this->history;
 }
 
-bool Fund::add(int amountToAdd)
+bool Fund::deposit(int amountToDeposit)
 {
-    if (amountToAdd < 0)
+    if (amountToDeposit < 0) // cannot deposit a negative value
         return false;
-    this->balance += amountToAdd;
+    this->balance += amountToDeposit;
     return true;
 }
 
@@ -78,7 +89,7 @@ void Fund::displayHistory() const
         int account2Fund = this->history[i].getTransferToFundID();
 
         // print minimum details of transaction
-        cout << " " << type << " " << account1ID << account1Fund << " " << amount;
+        cout << "  " << type << " " << account1ID << account1Fund << " " << amount;
 
         // if type transfer, print second account id and second fund id
         if (type == 'T')
@@ -87,7 +98,7 @@ void Fund::displayHistory() const
         }
 
         // if transaction failed, print failed
-        if (this->history[i].failedTransaction())
+        if (this->history[i].isFailed())
             cout << " (failed)";
         cout << endl;
     }

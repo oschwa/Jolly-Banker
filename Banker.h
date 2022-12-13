@@ -14,8 +14,13 @@
 class Banker
 {
 private:
+	// BST that stores all accounts
 	AccountTree accounts;
+
+	// queue that hold pending transactions
 	queue<Transaction> *transactionQueue;
+
+	// reader that fills transaction queue
 	TransactionReader reader;
 
 public:
@@ -127,7 +132,7 @@ public:
 	/**
 	 * main Main function for running the program
 	 */
-	int main();
+	int main(int argc, char **argv);
 };
 
 #endif

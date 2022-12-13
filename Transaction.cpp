@@ -1,4 +1,13 @@
 // Transaction.cpp
+/*
+Author(s): Alex Covaci
+Class: CSS 342 C Aut 22
+Description: Transaction hold 9 data values.
+It holds first and last name, transaction type,
+account ID, fund ID, account ID of recipient,
+fund ID of recipient, amount, and a boolean
+representing if the transaction failed
+*/
 
 #include "Transaction.h"
 
@@ -43,17 +52,6 @@ Transaction::Transaction(char typeOfTransaction, int accountNo, int fundNo, int 
     this->failed = false;
 }
 
-// transaction that fails to process
-Transaction::Transaction(char typeOfTransaction, int accountNo, int fundNo, int amount, bool failed)
-{
-    this->transactionType = typeOfTransaction;
-    this->accountID = accountNo;
-    this->fundID = fundNo;
-    this->amount = amount;
-    this->failed = failed;
-    this->failed = false;
-}
-
 Transaction::Transaction(char typeOfTransaction, int accountNo, int fundNo, int amount, int transferToAccount, int transferToFund)
 {
     this->transactionType = typeOfTransaction;
@@ -63,18 +61,6 @@ Transaction::Transaction(char typeOfTransaction, int accountNo, int fundNo, int 
     this->transferToFundID = transferToFund;
     this->amount = amount;
     this->failed = false;
-}
-
-// transaction that fails to process
-Transaction::Transaction(char typeOfTransaction, int accountNo, int fundNo, int amount, int transferToAccount, int transferToFund, bool failed)
-{
-    this->transactionType = typeOfTransaction;
-    this->accountID = accountNo;
-    this->transferToAccountID = transferToAccount;
-    this->fundID = fundNo;
-    this->transferToFundID = transferToFund;
-    this->amount = amount;
-    this->failed = failed;
 }
 
 char Transaction::getTransactionType() const
@@ -122,8 +108,7 @@ void Transaction::setFailed(bool isFailed)
     this->failed = true;
 }
 
-// Checks if 'fail' is empty, if it is empty the transaction is successfull, if it is not empty the transaction has failedTransaction
-bool Transaction::failedTransaction() const
+bool Transaction::isFailed() const
 {
     return this->failed;
 }
@@ -143,18 +128,3 @@ void Transaction::setName(std::string firstName, std::string lastName)
     this->firstName = firstName;
     this->lastName = lastName;
 }
-
-////overload operator
-////If 'fail' is empty then transaction is successful and successfull message is shown,
-////if 'fail' is not empty then transaction has failed and failedTransaction message is shown
-// ostream & operator<<(ostream & out, const Transaction & trans)
-//{
-//     if (trans.fail.empty())
-//     {
-//         //show message: "successful transaction"
-//     }
-//     else
-//     {
-//         //show message: "failedTransaction transaction"
-//     }
-// }
