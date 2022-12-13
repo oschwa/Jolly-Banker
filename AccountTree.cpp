@@ -12,12 +12,18 @@ AccountTree::~AccountTree()
 }
 
 bool AccountTree::Insert(Account *insert)
+	// Adding accounts to the BST
 {
 	int insertAccountID = stoi(insert->getId());
 	if (insertAccountID < 1000 || insertAccountID > 9999)
+		
+	// Insert account to tree if the account ID from the que is valid 
 	{
-		cerr << "ERROR: Account Number Not Valid" << endl;
+		cerr << "ERROR: Account Number Not Valid" << endl; 
 		return false;
+		
+	// If invalid display error message
+	
 	}
 
 	if (root == NULL)
@@ -38,6 +44,8 @@ bool AccountTree::Insert(Account *insert)
 }
 
 bool AccountTree::Retrieve(const int &accountNumber, Account *&acc) const
+	
+	// Retrieving and returning account from the tree that was called from the que
 {
 	Node *current = root;
 	bool search = false;
@@ -67,21 +75,30 @@ bool AccountTree::Retrieve(const int &accountNumber, Account *&acc) const
 }
 
 void AccountTree::Display() const
+	
+	// Displays contents of BST
 {
 	if (root == NULL)
 	{
 		cerr << "ERROR: ACCOUNT LIST IS EMPTY" << endl;
+		
+	// Notification message  when BST is empty
+		
 	}
 	recursivePrint(root);
 }
 
 void AccountTree::Empty()
+	
+	// Empty contents of BST
 {
 	delete root;
 	root = NULL;
 }
 
 bool AccountTree::isEmpty() const
+	
+	// Check is BST is empty
 {
 	if (root->left == NULL && root->right == NULL)
 	{
