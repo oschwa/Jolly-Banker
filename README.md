@@ -41,7 +41,7 @@ H 1234  Display the history of all transactions of all accounts for client 1234 
 H 12344 Display the history for all transactions on the 500 Index Fund for client 1234 <br>
 O Bowden Charles 6537 Open an account for client Charles Bowden.  Use account id 6537 <br>
 
-## Installation 
+## Installation and Setup
 
 This section covers the instructions for installing and using this program.
 
