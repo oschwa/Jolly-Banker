@@ -26,38 +26,45 @@ public:
     /**
      * Method for reading file input.
      * @param std::string Name of file to be read.
-     * @post bool Indicates success or failure.
+     * @post Returns bool indicating success or failue.
     */
     bool read(std::string file);
     /**
-     * Method for creating Transaction objects from file 
-     * input.
-     * @param std::string Line from input file.
+     * Method for creating Transaction objects from file.
+     * @param std::string Line from file to be read.
+     * @post void.
     */
     void defineTransaction(std::string line);
     /**
-     * Method for creating a Deposit or Withdrawal 
-     * Transaction object.
-     * @param std::string Line from input file.
-     * @post char Type of transaction.
+     * Method for creating a Deposit / Withdrawl Transaction
+     * Object.
+     * @param std::string Line from file to be read.
+     * @param char Letter representing type of transaction.
+     * @post Returns Transaction object reference.
     */
     Transaction& defineDepositWithdrawal(std::string line, char type);
     /**
-     * Method for creating an Account Open Transaction object.
-     * @param std::string Line from input file.
-     * @post char Type of transaction.
+     * Method for creating an Account Open Transaction
+     * Object.
+     * @param std::string Line from file to be read.
+     * @param char Letter representing type of transaction.
+     * @post Returns Transaction object reference.
     */
     Transaction& defineAccountOpen(std::string line, char type);
     /**
-     * Method for creating a Transfer Transaction Object.
-     * @param std::string Line from input file.
-     * @post char Type of transaction.
+     * Method for creating a Transfer Transaction
+     * Object.
+     * @param std::string Line from file to be read.
+     * @param char Letter representing type of transaction.
+     * @post Returns Transaction object reference.
     */
     Transaction& defineFundTransfer(std::string line, char type);
     /**
-     * Method for creating a History Query Transaction Object.
-     * @param std::string Line from input file.
-     * @post char Type of transaction.
+     * Method for creating a History Query Transaction
+     * Object.
+     * @param std::string Line from file to be read.
+     * @param char Letter representing type of transaction.
+     * @post Returns Transaction object reference.
     */
     Transaction& defineHistoryQuery(std::string line, char type);
 
